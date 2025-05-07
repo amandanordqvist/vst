@@ -1,17 +1,49 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, ActivityIndicator, TextStyle } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Card } from '@/components/Card';
-import { ChecklistItem } from '@/components/ChecklistItem';
-import { Button } from '@/components/Button';
-import { ProgressBar } from '@/components/ProgressBar';
+import Card from '@/components/Card';
+import ChecklistItem from '@/components/ChecklistItem';
+import Button from '@/components/Button';
+import ProgressBar from '@/components/ProgressBar';
 import { typography } from '@/constants/typography';
-import { colors } from '@/constants/colors';
+import { Colors } from '@/constants/colors';
 import { Plus, Filter, CheckCircle, AlertTriangle } from 'lucide-react-native';
 import { useChecklistStore } from '@/store/checklist-store';
 import { useVesselStore } from '@/store/vessel-store';
 
-export default function ChecklistsScreen() {
+// Convert typography styles to comply with TextStyle requirements
+const typographyStyles = {
+  h2: {
+    fontSize: typography.h2.fontSize,
+    fontWeight: typography.h2.fontWeight as TextStyle['fontWeight'],
+    color: typography.h2.color,
+    letterSpacing: typography.h2.letterSpacing,
+    lineHeight: typography.h2.lineHeight,
+  },
+  h3: {
+    fontSize: typography.h3.fontSize,
+    fontWeight: typography.h3.fontWeight as TextStyle['fontWeight'],
+    color: typography.h3.color,
+    letterSpacing: typography.h3.letterSpacing,
+    lineHeight: typography.h3.lineHeight,
+  },
+  subtitle: {
+    fontSize: typography.subtitle.fontSize,
+    fontWeight: typography.subtitle.fontWeight as TextStyle['fontWeight'],
+    color: typography.subtitle.color,
+    letterSpacing: typography.subtitle.letterSpacing,
+    lineHeight: typography.subtitle.lineHeight,
+  },
+  bodySmall: {
+    fontSize: typography.bodySmall.fontSize,
+    fontWeight: typography.bodySmall.fontWeight as TextStyle['fontWeight'],
+    color: typography.bodySmall.color,
+    letterSpacing: typography.bodySmall.letterSpacing,
+    lineHeight: typography.bodySmall.lineHeight,
+  }
+};
+
+function ChecklistsScreen() {
   const router = useRouter();
   const { checklists, isLoading, fetchChecklists, setCurrentType } = useChecklistStore();
   const { vessels } = useVesselStore();
@@ -39,7 +71,7 @@ export default function ChecklistsScreen() {
   if (isLoading) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color={colors.primary} />
+        <ActivityIndicator size="large" color={Colors.primary} />
       </View>
     );
   }
@@ -67,15 +99,15 @@ export default function ChecklistsScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={typography.h2}>Checklists</Text>
+        <Text style={typographyStyles.h2}>Checklists</Text>
         <View style={styles.headerButtons}>
           <TouchableOpacity style={styles.filterButton}>
-            <Filter size={20} color={colors.text} />
+            <Filter size={20} color={Colors.textPrimary} />
           </TouchableOpacity>
           <Button
             title="New Checklist"
             size="small"
-            icon={<Plus size={16} color={colors.white} />}
+            icon={<Plus size={16} color={Colors.white} />}
             onPress={handleCreateChecklist}
           />
         </View>
@@ -109,11 +141,11 @@ export default function ChecklistsScreen() {
       <ScrollView style={styles.content}>
         <Card style={styles.summaryCard}>
           <View style={styles.summaryHeader}>
-            <Text style={typography.subtitle}>
+            <Text style={typographyStyles.subtitle}>
               {activeTab === 'preDeparture' ? 'Pre-Departure Checklist' : 'Post-Trip Checklist'}
             </Text>
             {vessels.length > 0 && (
-              <Text style={typography.bodySmall}>
+              <Text style={typographyStyles.bodySmall}>
                 Vessel: {vessels[0].name}
               </Text>
             )}
@@ -128,15 +160,15 @@ export default function ChecklistsScreen() {
             </View>
             <ProgressBar 
               progress={activeTab === 'preDeparture' ? preDepartureCompletion : postTripCompletion}
-              progressColor={colors.primary}
+              progressColor={Colors.primary}
               height={8}
             />
           </View>
           
           <View style={styles.summaryStats}>
             <View style={styles.statItem}>
-              <View style={[styles.statIcon, { backgroundColor: colors.primaryLight }]}>
-                <CheckCircle size={20} color={colors.primary} />
+              <View style={[styles.statIcon, { backgroundColor: Colors.background }]}>
+                <CheckCircle size={20} color={Colors.primary} />
               </View>
               <View>
                 <Text style={styles.statValue}>
@@ -150,8 +182,8 @@ export default function ChecklistsScreen() {
             </View>
             
             <View style={styles.statItem}>
-              <View style={[styles.statIcon, { backgroundColor: `${colors.error}20` }]}>
-                <AlertTriangle size={20} color={colors.error} />
+              <View style={[styles.statIcon, { backgroundColor: `${Colors.accent}20` }]}>
+                <AlertTriangle size={20} color={Colors.accent} />
               </View>
               <View>
                 <Text style={styles.statValue}>
@@ -163,7 +195,7 @@ export default function ChecklistsScreen() {
           </View>
         </Card>
         
-        <Text style={[typography.h3, styles.sectionTitle]}>Checklist Items</Text>
+        <Text style={[typographyStyles.h3, styles.sectionTitle]}>Checklist Items</Text>
         
         {activeTab === 'preDeparture' ? (
           checklists.preDeparture.length > 0 ? (
@@ -205,25 +237,27 @@ export default function ChecklistsScreen() {
   );
 }
 
+export default ChecklistsScreen;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: Colors.background,
   },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.background,
+    backgroundColor: Colors.background,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: colors.white,
+    backgroundColor: Colors.white,
     borderBottomWidth: 1,
-    borderBottomColor: colors.border,
+    borderBottomColor: Colors.border,
   },
   headerButtons: {
     flexDirection: 'row',
@@ -233,16 +267,16 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: colors.lightGray,
+    backgroundColor: Colors.gray,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 8,
   },
   tabs: {
     flexDirection: 'row',
-    backgroundColor: colors.white,
+    backgroundColor: Colors.white,
     borderBottomWidth: 1,
-    borderBottomColor: colors.border,
+    borderBottomColor: Colors.border,
   },
   tab: {
     flex: 1,
@@ -251,15 +285,18 @@ const styles = StyleSheet.create({
   },
   activeTab: {
     borderBottomWidth: 2,
-    borderBottomColor: colors.primary,
+    borderBottomColor: Colors.primary,
   },
   tabText: {
-    ...typography.body,
-    color: colors.textSecondary,
+    fontSize: 16, 
+    fontWeight: "400" as TextStyle['fontWeight'], 
+    lineHeight: 24, 
+    letterSpacing: 0.15,
+    color: Colors.textSecondary,
   },
   activeTabText: {
-    color: colors.primary,
-    fontWeight: '600',
+    color: Colors.primary,
+    fontWeight: "600" as TextStyle['fontWeight'],
   },
   content: {
     flex: 1,
@@ -284,12 +321,17 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   progressLabel: {
-    ...typography.bodySmall,
-    color: colors.textSecondary,
+    fontSize: 16, 
+    fontWeight: "400" as TextStyle['fontWeight'], 
+    lineHeight: 24, 
+    letterSpacing: 0.15,
+    color: Colors.textSecondary,
   },
   progressPercentage: {
-    ...typography.body,
-    fontWeight: '600',
+    fontSize: 16, 
+    fontWeight: "600" as TextStyle['fontWeight'], 
+    lineHeight: 24, 
+    letterSpacing: 0.15,
   },
   summaryStats: {
     flexDirection: 'row',
@@ -309,20 +351,28 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   statValue: {
-    ...typography.body,
-    fontWeight: '600',
+    fontSize: 16, 
+    fontWeight: "600" as TextStyle['fontWeight'], 
+    lineHeight: 24, 
+    letterSpacing: 0.15,
   },
   statLabel: {
-    ...typography.bodySmall,
-    color: colors.textSecondary,
+    fontSize: 16, 
+    fontWeight: "400" as TextStyle['fontWeight'], 
+    lineHeight: 24, 
+    letterSpacing: 0.15,
+    color: Colors.textSecondary,
   },
   sectionTitle: {
     marginTop: 8,
     marginBottom: 12,
   },
   emptyText: {
-    ...typography.body,
-    color: colors.textSecondary,
+    fontSize: 16, 
+    fontWeight: "400" as TextStyle['fontWeight'], 
+    lineHeight: 24, 
+    letterSpacing: 0.15,
+    color: Colors.textSecondary,
     textAlign: 'center',
     marginVertical: 16,
   },

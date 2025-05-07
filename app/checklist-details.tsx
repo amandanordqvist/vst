@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image, Alert, Platform } from 'react-native';
 import { Stack, useRouter, useLocalSearchParams } from 'expo-router';
-import { Card } from '@/components/Card';
-import { Button } from '@/components/Button';
-import { ProgressBar } from '@/components/ProgressBar';
+import Card from '@/components/Card';
+import Button from '@/components/Button';
+import ProgressBar from '@/components/ProgressBar';
 import { typography } from '@/constants/typography';
-import { colors } from '@/constants/colors';
+import { Colors } from '@/constants/colors';
 import { 
   ChevronLeft, 
   Camera, 
@@ -179,7 +179,7 @@ export default function ChecklistDetailsScreen() {
               onPress={() => router.back()}
               style={styles.headerButton}
             >
-              <ChevronLeft size={24} color={colors.text} />
+              <ChevronLeft size={24} color={Colors.textPrimaryPrimaryPrimary} />
             </TouchableOpacity>
           ),
           headerRight: () => (
@@ -187,7 +187,7 @@ export default function ChecklistDetailsScreen() {
               onPress={handleShareChecklist}
               style={styles.headerButton}
             >
-              <Share2 size={24} color={colors.text} />
+              <Share2 size={24} color={Colors.textPrimaryPrimaryPrimary} />
             </TouchableOpacity>
           ),
         }} 
@@ -205,9 +205,9 @@ export default function ChecklistDetailsScreen() {
               onPress={handleToggleItem}
             >
               {checklistItem.isCompleted ? (
-                <CheckCircle size={20} color={colors.white} />
+                <CheckCircle size={20} color={Colors.white} />
               ) : (
-                <Clock size={20} color={colors.white} />
+                <Clock size={20} color={Colors.white} />
               )}
               <Text style={styles.statusButtonText}>
                 {checklistItem.isCompleted ? 'Completed' : 'Pending'}
@@ -221,7 +221,7 @@ export default function ChecklistDetailsScreen() {
           
           {checklistItem.hasIssue && (
             <View style={styles.issueContainer}>
-              <AlertTriangle size={20} color={colors.error} />
+              <AlertTriangle size={20} color={Colors.accent} />
               <Text style={[typography.body, styles.issueText]}>
                 Issue reported: {checklistItem.issueDescription || 'No description provided'}
               </Text>
@@ -230,14 +230,14 @@ export default function ChecklistDetailsScreen() {
           
           <View style={styles.metaContainer}>
             <View style={styles.metaItem}>
-              <Calendar size={16} color={colors.gray} />
+              <Calendar size={16} color={Colors.textSecondary} />
               <Text style={[typography.bodySmall, styles.metaText]}>
                 Added: June 15, 2023
               </Text>
             </View>
             
             <View style={styles.metaItem}>
-              <User size={16} color={colors.gray} />
+              <User size={16} color={Colors.textSecondary} />
               <Text style={[typography.bodySmall, styles.metaText]}>
                 Assigned to: Captain
               </Text>
@@ -258,13 +258,13 @@ export default function ChecklistDetailsScreen() {
                 />
                 <View style={styles.photoOverlay}>
                   <TouchableOpacity style={styles.photoAction}>
-                    <Download size={20} color={colors.white} />
+                    <Download size={20} color={Colors.white} />
                   </TouchableOpacity>
                   <TouchableOpacity 
                     style={styles.photoAction}
                     onPress={handleAddPhoto}
                   >
-                    <Camera size={20} color={colors.white} />
+                    <Camera size={20} color={Colors.white} />
                   </TouchableOpacity>
                 </View>
               </View>
@@ -275,7 +275,7 @@ export default function ChecklistDetailsScreen() {
                 </Text>
                 <Button
                   title="Take Photo"
-                  icon={<Camera size={20} color={colors.white} />}
+                  icon={<Camera size={20} color={Colors.white} />}
                   onPress={handleAddPhoto}
                   style={styles.photoButton}
                 />
@@ -344,10 +344,10 @@ export default function ChecklistDetailsScreen() {
             <Button 
               title="Report Issue" 
               variant="outline" 
-              icon={<AlertTriangle size={20} color={colors.error} />}
+              icon={<AlertTriangle size={20} color={Colors.accent} />}
               onPress={handleReportIssue}
-              textStyle={{ color: colors.error }}
-              style={[styles.actionButton, { borderColor: colors.error }]}
+              textStyle={{ color: Colors.accent }}
+              style={[styles.actionButton, { borderColor: Colors.accent }]}
             />
           )}
           
@@ -374,7 +374,7 @@ export default function ChecklistDetailsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: Colors.background,
   },
   contentContainer: {
     padding: 16,
@@ -385,7 +385,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: colors.background,
+    backgroundColor: Colors.background,
   },
   headerButton: {
     padding: 8,
@@ -407,15 +407,15 @@ const styles = StyleSheet.create({
     borderRadius: 16,
   },
   completedButton: {
-    backgroundColor: colors.success,
+    backgroundColor: Colors.success,
   },
   pendingButton: {
-    backgroundColor: colors.warning,
+    backgroundColor: Colors.warning,
   },
   statusButtonText: {
-    ...typography.bodySmall,
-    color: colors.white,
-    fontWeight: '600',
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
+    color: Colors.white,
+    fontWeight: "600",
     marginLeft: 4,
   },
   description: {
@@ -424,19 +424,19 @@ const styles = StyleSheet.create({
   issueContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: `${colors.error}15`,
+    backgroundColor: `${Colors.accent}15`,
     padding: 12,
     borderRadius: 8,
     marginBottom: 16,
   },
   issueText: {
     marginLeft: 8,
-    color: colors.error,
+    color: Colors.accent,
     flex: 1,
   },
   metaContainer: {
     borderTopWidth: 1,
-    borderTopColor: colors.border,
+    borderTopColor: Colors.textSecondary,
     paddingTop: 16,
   },
   metaItem: {
@@ -479,13 +479,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: Colors.textSecondary,
     borderStyle: 'dashed',
     borderRadius: 8,
   },
   noPhotoText: {
     marginBottom: 16,
-    color: colors.textSecondary,
+    color: Colors.textSecondary,
   },
   photoButton: {
     minWidth: 150,
@@ -496,7 +496,7 @@ const styles = StyleSheet.create({
   existingNote: {
     marginTop: 16,
     padding: 16,
-    backgroundColor: colors.lightGray,
+    backgroundColor: Colors.gray,
     borderRadius: 8,
   },
   editNoteButton: {
@@ -504,23 +504,23 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   editNoteText: {
-    ...typography.bodySmall,
-    color: colors.primary,
-    fontWeight: '600',
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
+    color: Colors.primary,
+    fontWeight: "600",
   },
   addNoteButton: {
     marginTop: 16,
     padding: 16,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: Colors.textSecondary,
     borderStyle: 'dashed',
     borderRadius: 8,
     alignItems: 'center',
   },
   addNoteText: {
-    ...typography.body,
-    color: colors.primary,
-    fontWeight: '500',
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
+    color: Colors.primary,
+    fontWeight: "500",
   },
   actionButtons: {
     flexDirection: 'row',

@@ -10,7 +10,7 @@ import {
   Platform
 } from 'react-native';
 import { typography } from '@/constants/typography';
-import { colors } from '@/constants/colors';
+import { Colors } from '@/constants/colors';
 
 export interface InputProps extends TextInputProps {
   label?: string;
@@ -20,7 +20,7 @@ export interface InputProps extends TextInputProps {
   rightIcon?: ReactNode;
 }
 
-export function Input({ 
+export default function Input({ 
   label, 
   error, 
   containerStyle, 
@@ -63,7 +63,7 @@ export function Input({
   // Interpolate border color
   const borderColor = animatedBorderColor.interpolate({
     inputRange: [0, 1],
-    outputRange: [error ? colors.error : colors.border, colors.primary],
+    outputRange: [error ? Colors.error : Colors.border, Colors.primary],
   });
   
   return (
@@ -74,20 +74,20 @@ export function Input({
         styles.inputContainer,
         error ? styles.inputError : null,
         isFocused && styles.inputFocused,
-        { borderColor: error ? colors.error : (isFocused ? colors.primary : colors.border) },
+        { borderColor: error ? Colors.error : (isFocused ? Colors.primary : Colors.border) },
         Platform.OS !== 'web' ? { borderColor } : null
       ]}>
         {icon && <View style={styles.iconContainer}>{icon}</View>}
         <TextInput
           style={[
             styles.input,
-            icon && styles.inputWithLeftIcon,
-            rightIcon && styles.inputWithRightIcon
+            icon ? styles.inputWithLeftIcon : null,
+            rightIcon ? styles.inputWithRightIcon : null
           ]}
-          placeholderTextColor={colors.textTertiary}
+          placeholderTextColor={Colors.textPrimaryPrimaryPrimarySecondary}
           onFocus={handleFocus}
           onBlur={handleBlur}
-          selectionColor={colors.primary}
+          selectionColor={Colors.primary}
           {...props}
         />
         {rightIcon && <View style={styles.rightIconContainer}>{rightIcon}</View>}
@@ -103,21 +103,23 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   label: {
-    ...typography.bodySmall,
+    fontSize: 16, 
     fontWeight: '600',
+    lineHeight: 24, 
+    letterSpacing: 0.15,
     marginBottom: 8,
-    color: colors.textSecondary,
+    color: Colors.textPrimaryPrimaryPrimarySecondary,
   },
   focusedLabel: {
-    color: colors.primary,
+    color: Colors.primary,
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1.5,
-    borderColor: colors.border,
+    borderColor: Colors.border,
     borderRadius: 12,
-    backgroundColor: colors.background,
+    backgroundColor: Colors.background,
     overflow: 'hidden',
   },
   inputWithLeftIcon: {
@@ -133,21 +135,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
   },
   input: {
-    ...typography.body,
+    fontSize: 16, 
+    fontWeight: "400", 
+    lineHeight: 24, 
+    letterSpacing: 0.15,
     flex: 1,
     height: 52,
     paddingHorizontal: 16,
-    color: colors.text,
+    color: Colors.textPrimaryPrimaryPrimaryPrimary,
   },
   inputFocused: {
-    borderColor: colors.primary,
+    borderColor: Colors.primary,
   },
   inputError: {
-    borderColor: colors.error,
+    borderColor: Colors.error,
   },
   errorText: {
-    ...typography.caption,
-    color: colors.error,
+    fontSize: 12, fontWeight: "400", lineHeight: 16, letterSpacing: 0.4,
+    color: Colors.error,
     marginTop: 6,
   },
 });

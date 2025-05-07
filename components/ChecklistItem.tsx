@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Switch } from 'react-native';
-import { Card } from './Card';
-import { StatusBadge } from './StatusBadge';
+import Card from './Card';
+import StatusBadge from './StatusBadge';
 import { typography } from '@/constants/typography';
 import { colors, statusColors } from '@/constants/colors';
 import { Camera, AlertTriangle, Check } from 'lucide-react-native';
@@ -19,7 +19,7 @@ export interface ChecklistItemProps {
   onPress?: (id: string) => void;
 }
 
-export function ChecklistItem({
+export default function ChecklistItem({
   id,
   title,
   isCompleted,
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     backgroundColor: `${statusColors.good}20`,
   },
   actionText: {
-    ...typography.caption,
+    fontSize: 12, fontWeight: "400", lineHeight: 16, letterSpacing: 0.4,
     marginLeft: 4,
   },
   completedIndicator: {

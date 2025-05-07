@@ -1,14 +1,46 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
-import { Card } from '@/components/Card';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, TextStyle } from 'react-native';
+import Card from '@/components/Card';
 import { typography } from '@/constants/typography';
-import { colors } from '@/constants/colors';
+import { Colors } from '@/constants/colors';
 import { BarChart, PieChart, LineChart, Calendar, Download, Filter, ChevronDown } from 'lucide-react-native';
 import { useVesselStore } from '@/store/vessel-store';
 import { useMaintenanceStore } from '@/store/maintenance-store';
 import { useTripLogStore } from '@/store/trip-log-store';
-import { ReportChart } from '@/components/ReportChart';
-import { Button } from '@/components/Button';
+import ReportChart from '@/components/ReportChart';
+import Button from '@/components/Button';
+
+// Convert typography styles to comply with TextStyle requirements
+const typographyStyles = {
+  h2: {
+    fontSize: typography.h2.fontSize,
+    fontWeight: typography.h2.fontWeight as TextStyle['fontWeight'],
+    color: typography.h2.color,
+    letterSpacing: typography.h2.letterSpacing,
+    lineHeight: typography.h2.lineHeight,
+  },
+  h3: {
+    fontSize: typography.h3.fontSize,
+    fontWeight: typography.h3.fontWeight as TextStyle['fontWeight'],
+    color: typography.h3.color,
+    letterSpacing: typography.h3.letterSpacing,
+    lineHeight: typography.h3.lineHeight,
+  },
+  body: {
+    fontSize: typography.body.fontSize,
+    fontWeight: typography.body.fontWeight as TextStyle['fontWeight'],
+    color: typography.body.color,
+    letterSpacing: typography.body.letterSpacing,
+    lineHeight: typography.body.lineHeight,
+  },
+  bodySmall: {
+    fontSize: typography.bodySmall.fontSize,
+    fontWeight: typography.bodySmall.fontWeight as TextStyle['fontWeight'],
+    color: typography.bodySmall.color,
+    letterSpacing: typography.bodySmall.letterSpacing,
+    lineHeight: typography.bodySmall.lineHeight,
+  }
+};
 
 // Report types for the filter
 type ReportType = 'usage' | 'maintenance' | 'fuel' | 'expenses';
@@ -61,7 +93,7 @@ export default function ReportsScreen() {
           datasets: [
             {
               data: [2, 0, 4, 0, 3, 6, 5],
-              color: colors.primary,
+              color: Colors.primary,
             }
           ],
           unit: 'hours',
@@ -73,7 +105,7 @@ export default function ReportsScreen() {
           datasets: [
             {
               data: [5, 2, 3, 1, 2],
-              colors: [colors.primary, colors.secondary, colors.warning, colors.success, colors.gray],
+              colors: [Colors.primary, Colors.secondary, Colors.warning, Colors.success, Colors.textSecondary],
             }
           ],
           unit: 'tasks',
@@ -85,7 +117,7 @@ export default function ReportsScreen() {
           datasets: [
             {
               data: [50, 45, 60, 70, 55, 40],
-              color: colors.secondary,
+              color: Colors.secondary,
             }
           ],
           unit: 'gallons',
@@ -97,7 +129,7 @@ export default function ReportsScreen() {
           datasets: [
             {
               data: [35, 25, 20, 15, 5],
-              colors: [colors.secondary, colors.primary, colors.warning, colors.success, colors.gray],
+              colors: [Colors.secondary, Colors.primary, Colors.warning, Colors.success, Colors.textSecondary],
             }
           ],
           unit: '%',
@@ -185,22 +217,22 @@ export default function ReportsScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={typography.h2}>Reports</Text>
+        <Text style={typographyStyles.h2}>Reports</Text>
         <TouchableOpacity style={styles.downloadButton}>
-          <Download size={20} color={colors.text} />
+          <Download size={20} color={Colors.textPrimary} />
         </TouchableOpacity>
       </View>
       
       <ScrollView style={styles.content}>
         <View style={styles.filters}>
           <View style={styles.filterContainer}>
-            <Text style={typography.bodySmall}>Report Type</Text>
+            <Text style={typographyStyles.bodySmall}>Report Type</Text>
             <TouchableOpacity 
               style={styles.filterButton}
               onPress={() => setShowReportFilter(!showReportFilter)}
             >
               <Text style={styles.filterButtonText}>{getReportTitle(selectedReport)}</Text>
-              <ChevronDown size={16} color={colors.text} />
+              <ChevronDown size={16} color={Colors.textPrimary} />
             </TouchableOpacity>
             
             {showReportFilter && (
@@ -266,13 +298,13 @@ export default function ReportsScreen() {
           </View>
           
           <View style={styles.filterContainer}>
-            <Text style={typography.bodySmall}>Time Period</Text>
+            <Text style={typographyStyles.bodySmall}>Time Period</Text>
             <TouchableOpacity 
               style={styles.filterButton}
               onPress={() => setShowTimeFilter(!showTimeFilter)}
             >
               <Text style={styles.filterButtonText}>{getTimePeriodLabel(timePeriod)}</Text>
-              <ChevronDown size={16} color={colors.text} />
+              <ChevronDown size={16} color={Colors.textPrimary} />
             </TouchableOpacity>
             
             {showTimeFilter && (
@@ -353,7 +385,7 @@ export default function ReportsScreen() {
         </View>
         
         <Card style={styles.chartCard}>
-          <Text style={typography.h3}>{getReportTitle(selectedReport)}</Text>
+          <Text style={typographyStyles.h3}>{getReportTitle(selectedReport)}</Text>
           <Text style={styles.chartSubtitle}>{getTimePeriodLabel(timePeriod)}</Text>
           
           <View style={styles.chartContainer}>
@@ -374,13 +406,13 @@ export default function ReportsScreen() {
         </Card>
         
         <Card style={styles.activitiesCard}>
-          <Text style={typography.h3}>Recent Activities</Text>
+          <Text style={typographyStyles.h3}>Recent Activities</Text>
           
           {recentActivities.map((activity, index) => (
             <View key={index} style={styles.activityItem}>
               <View style={styles.activityInfo}>
-                <Text style={typography.body}>{activity.title}</Text>
-                <Text style={typography.bodySmall}>{activity.date}</Text>
+                <Text style={typographyStyles.body}>{activity.title}</Text>
+                <Text style={typographyStyles.bodySmall}>{activity.date}</Text>
               </View>
               <Text style={styles.activityValue}>{activity.value}</Text>
             </View>
@@ -396,11 +428,11 @@ export default function ReportsScreen() {
         
         <Card style={styles.exportCard}>
           <View style={styles.exportHeader}>
-            <Calendar size={20} color={colors.primary} />
-            <Text style={[typography.h3, styles.exportTitle]}>Export Report</Text>
+            <Calendar size={20} color={Colors.primary} />
+            <Text style={[typographyStyles.h3, styles.exportTitle]}>Export Report</Text>
           </View>
           
-          <Text style={[typography.body, styles.exportDescription]}>
+          <Text style={[typographyStyles.body, styles.exportDescription]}>
             Download a detailed report of your {getReportTitle(selectedReport).toLowerCase()} for the selected time period.
           </Text>
           
@@ -433,22 +465,22 @@ export default function ReportsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: Colors.background,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: colors.white,
+    backgroundColor: Colors.white,
     borderBottomWidth: 1,
-    borderBottomColor: colors.border,
+    borderBottomColor: Colors.border,
   },
   downloadButton: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: colors.lightGray,
+    backgroundColor: Colors.gray,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -469,31 +501,33 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: colors.white,
+    backgroundColor: Colors.white,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: Colors.border,
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 8,
     marginTop: 4,
   },
   filterButtonText: {
-    ...typography.bodySmall,
-    fontWeight: '500',
+    fontSize: 16, 
+    fontWeight: "500" as TextStyle['fontWeight'], 
+    lineHeight: 24, 
+    letterSpacing: 0.15,
   },
   filterDropdown: {
     position: 'absolute',
     top: 70,
     left: 0,
     right: 0,
-    backgroundColor: colors.white,
+    backgroundColor: Colors.white,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: Colors.border,
     borderRadius: 8,
     padding: 8,
     zIndex: 10,
     elevation: 3,
-    shadowColor: colors.text,
+    shadowColor: Colors.shadow,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
@@ -504,46 +538,54 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   filterOptionText: {
-    ...typography.bodySmall,
+    fontSize: 16, 
+    fontWeight: "400" as TextStyle['fontWeight'], 
+    lineHeight: 24, 
+    letterSpacing: 0.15,
   },
   selectedFilterOption: {
-    color: colors.primary,
-    fontWeight: '600',
+    color: Colors.primary,
+    fontWeight: "600" as TextStyle['fontWeight'],
   },
   chartCard: {
     marginBottom: 16,
   },
   chartSubtitle: {
-    ...typography.bodySmall,
-    color: colors.textSecondary,
+    fontSize: 16, 
+    fontWeight: "400" as TextStyle['fontWeight'], 
+    lineHeight: 24, 
+    letterSpacing: 0.15,
+    color: Colors.textSecondary,
     marginTop: 4,
     marginBottom: 16,
   },
   chartContainer: {
-    height: 220,
     marginVertical: 16,
-    justifyContent: 'center',
-    alignItems: 'center',
+    height: 220,
   },
   statsContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     marginTop: 16,
     paddingTop: 16,
     borderTopWidth: 1,
-    borderTopColor: colors.border,
+    borderTopColor: Colors.border,
   },
   statItem: {
     alignItems: 'center',
-    flex: 1,
   },
   statValue: {
-    ...typography.h3,
+    fontSize: 18, 
+    fontWeight: "700" as TextStyle['fontWeight'], 
+    lineHeight: 24, 
+    color: Colors.primary,
     marginBottom: 4,
   },
   statLabel: {
-    ...typography.bodySmall,
-    color: colors.textSecondary,
+    fontSize: 14, 
+    fontWeight: "400" as TextStyle['fontWeight'], 
+    lineHeight: 20, 
+    color: Colors.textSecondary,
   },
   activitiesCard: {
     marginBottom: 16,
@@ -552,24 +594,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 16,
-    paddingBottom: 16,
+    paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: colors.border,
+    borderBottomColor: Colors.border,
   },
   activityInfo: {
     flex: 1,
   },
   activityValue: {
-    ...typography.body,
-    fontWeight: '600',
-    color: colors.primary,
+    fontSize: 16, 
+    fontWeight: "600" as TextStyle['fontWeight'], 
+    lineHeight: 24, 
+    color: Colors.primary,
   },
   viewAllButton: {
     marginTop: 16,
   },
   exportCard: {
-    marginBottom: 16,
+    marginBottom: 24,
   },
   exportHeader: {
     flexDirection: 'row',

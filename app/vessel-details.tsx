@@ -2,12 +2,12 @@ import React from 'react';
 import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Card } from '@/components/Card';
-import { StatusBadge } from '@/components/StatusBadge';
-import { ProgressBar } from '@/components/ProgressBar';
-import { Button } from '@/components/Button';
+import Card from '@/components/Card';
+import StatusBadge from '@/components/StatusBadge';
+import ProgressBar from '@/components/ProgressBar';
+import Button from '@/components/Button';
 import { typography } from '@/constants/typography';
-import { colors } from '@/constants/colors';
+import { Colors } from '@/constants/colors';
 import { 
   MapPin, 
   Calendar, 
@@ -52,12 +52,12 @@ export default function VesselDetailsScreen() {
               onPress={() => router.back()}
               style={styles.headerButton}
             >
-              <ChevronLeft size={24} color={colors.text} />
+              <ChevronLeft size={24} color={Colors.textPrimaryPrimaryPrimary} />
             </TouchableOpacity>
           ),
           headerRight: () => (
             <TouchableOpacity style={styles.headerButton}>
-              <Share2 size={24} color={colors.text} />
+              <Share2 size={24} color={Colors.textPrimaryPrimaryPrimary} />
             </TouchableOpacity>
           ),
         }} 
@@ -106,14 +106,14 @@ export default function VesselDetailsScreen() {
             </View>
             
             <View style={styles.locationContainer}>
-              <MapPin size={16} color={colors.gray} />
+              <MapPin size={16} color={Colors.textSecondary} />
               <Text style={[typography.body, styles.locationText]}>{vessel.location}</Text>
             </View>
           </Card>
           
           <Card style={styles.fuelCard}>
             <View style={styles.fuelHeader}>
-              <Droplet size={20} color={colors.primary} />
+              <Droplet size={20} color={Colors.primary} />
               <Text style={[typography.h3, styles.fuelTitle]}>Fuel Level</Text>
             </View>
             
@@ -126,7 +126,7 @@ export default function VesselDetailsScreen() {
             
             <ProgressBar 
               progress={vessel.fuelLevel} 
-              progressColor={colors.primary}
+              progressColor={Colors.primary}
               height={12}
               style={styles.fuelProgressBar}
             />
@@ -134,22 +134,22 @@ export default function VesselDetailsScreen() {
           
           <View style={styles.actionsContainer}>
             <TouchableOpacity style={styles.actionButton}>
-              <View style={[styles.actionIcon, { backgroundColor: colors.primaryLight }]}>
-                <Clipboard size={24} color={colors.primary} />
+              <View style={[styles.actionIcon, { backgroundColor: Colors.background }]}>
+                <Clipboard size={24} color={Colors.primary} />
               </View>
               <Text style={styles.actionText}>Checklists</Text>
             </TouchableOpacity>
             
             <TouchableOpacity style={styles.actionButton}>
-              <View style={[styles.actionIcon, { backgroundColor: `${colors.secondary}20` }]}>
-                <Wrench size={24} color={colors.secondary} />
+              <View style={[styles.actionIcon, { backgroundColor: `${Colors.secondary}20` }]}>
+                <Wrench size={24} color={Colors.secondary} />
               </View>
               <Text style={styles.actionText}>Maintenance</Text>
             </TouchableOpacity>
             
             <TouchableOpacity style={styles.actionButton}>
-              <View style={[styles.actionIcon, { backgroundColor: `${colors.warning}20` }]}>
-                <AlertTriangle size={24} color={colors.warning} />
+              <View style={[styles.actionIcon, { backgroundColor: `${Colors.warning}20` }]}>
+                <AlertTriangle size={24} color={Colors.warning} />
               </View>
               <Text style={styles.actionText}>Report Issue</Text>
             </TouchableOpacity>
@@ -159,7 +159,7 @@ export default function VesselDetailsScreen() {
             <Text style={typography.h3}>Upcoming Maintenance</Text>
             
             <View style={styles.maintenanceItem}>
-              <View style={[styles.maintenanceStatus, { backgroundColor: colors.error }]} />
+              <View style={[styles.maintenanceStatus, { backgroundColor: Colors.accent }]} />
               <View style={styles.maintenanceInfo}>
                 <Text style={typography.body}>Engine Oil Change</Text>
                 <Text style={typography.bodySmall}>Due in 2 days</Text>
@@ -170,7 +170,7 @@ export default function VesselDetailsScreen() {
             </View>
             
             <View style={styles.maintenanceItem}>
-              <View style={[styles.maintenanceStatus, { backgroundColor: colors.warning }]} />
+              <View style={[styles.maintenanceStatus, { backgroundColor: Colors.warning }]} />
               <View style={styles.maintenanceInfo}>
                 <Text style={typography.body}>Replace Impeller</Text>
                 <Text style={typography.bodySmall}>Due in 7 days</Text>
@@ -229,7 +229,7 @@ export default function VesselDetailsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: Colors.background,
   },
   contentContainer: {
     paddingBottom: 32,
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: colors.background,
+    backgroundColor: Colors.background,
   },
   headerButton: {
     padding: 8,
@@ -295,8 +295,8 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   fuelPercentage: {
-    ...typography.h2,
-    color: colors.primary,
+    fontSize: 28, fontWeight: "700", lineHeight: 36, letterSpacing: -0.25,
+    color: Colors.primary,
   },
   fuelProgressBar: {
     marginTop: 4,
@@ -319,8 +319,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   actionText: {
-    ...typography.bodySmall,
-    fontWeight: '500',
+    fontSize: 16, fontWeight: "500", lineHeight: 24, letterSpacing: 0.15,
   },
   maintenanceCard: {
     marginHorizontal: 16,
@@ -331,7 +330,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
     paddingBottom: 16,
     borderBottomWidth: 1,
-    borderBottomColor: colors.border,
+    borderBottomColor: Colors.textSecondary,
   },
   maintenanceStatus: {
     width: 12,
@@ -345,12 +344,12 @@ const styles = StyleSheet.create({
   viewButton: {
     paddingHorizontal: 12,
     paddingVertical: 6,
-    backgroundColor: colors.primaryLight,
+    backgroundColor: Colors.background,
     borderRadius: 6,
   },
   viewButtonText: {
     ...typography.buttonSmall,
-    color: colors.primary,
+    color: Colors.primary,
   },
   viewAllButton: {
     marginTop: 16,
@@ -365,24 +364,24 @@ const styles = StyleSheet.create({
     marginTop: 16,
     paddingBottom: 16,
     borderBottomWidth: 1,
-    borderBottomColor: colors.border,
+    borderBottomColor: Colors.textSecondary,
   },
   tripDate: {
     width: 50,
     height: 50,
     borderRadius: 8,
-    backgroundColor: colors.primaryLight,
+    backgroundColor: Colors.background,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 12,
   },
   tripDay: {
-    ...typography.h3,
-    color: colors.primary,
+    fontSize: 24, fontWeight: "600", lineHeight: 32, letterSpacing: 0,
+    color: Colors.primary,
   },
   tripMonth: {
-    ...typography.caption,
-    color: colors.primary,
+    fontSize: 12, fontWeight: "400", lineHeight: 16, letterSpacing: 0.4,
+    color: Colors.primary,
   },
   tripInfo: {
     flex: 1,

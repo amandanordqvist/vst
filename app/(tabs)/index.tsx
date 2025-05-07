@@ -9,14 +9,14 @@ import {
   Platform
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Card } from '@/components/Card';
-import { StatusBadge } from '@/components/StatusBadge';
-import { ProgressBar } from '@/components/ProgressBar';
-import { VesselCard } from '@/components/VesselCard';
-import { WeatherCard } from '@/components/WeatherCard';
-import { MaintenanceItem } from '@/components/MaintenanceItem';
+import Card from '@/components/Card';
+import StatusBadge from '@/components/StatusBadge';
+import ProgressBar from '@/components/ProgressBar';
+import VesselCard from '@/components/VesselCard';
+import WeatherCard from '@/components/WeatherCard';
+import MaintenanceItem from '@/components/MaintenanceItem';
 import { typography } from '@/constants/typography';
-import { colors } from '@/constants/colors';
+import { Colors } from '@/constants/colors';
 import { 
   Bell, 
   Calendar, 
@@ -200,7 +200,7 @@ export default function DashboardScreen() {
             style={styles.notificationButton}
             onPress={() => router.push('/notifications')}
           >
-            <Bell size={24} color={colors.text} />
+            <Bell size={24} color={Colors.textPrimary} />
             {criticalItems.length > 0 && (
               <View style={styles.notificationBadge}>
                 <Text style={styles.notificationCount}>{criticalItems.length}</Text>
@@ -215,7 +215,7 @@ export default function DashboardScreen() {
             style={styles.notificationButton}
             onPress={() => router.push('/notifications')}
           >
-            <Bell size={24} color={colors.text} />
+            <Bell size={24} color={Colors.textPrimary} />
             {criticalItems.length > 0 && (
               <Animated.View style={[styles.notificationBadge, notificationAnimatedStyle]}>
                 <Text style={styles.notificationCount}>{criticalItems.length}</Text>
@@ -257,21 +257,21 @@ export default function DashboardScreen() {
             onPress={() => router.push('/(tabs)/checklists')}
           >
             <Text style={styles.seeAllText}>See All</Text>
-            <ChevronRight size={16} color={colors.primary} />
+            <ChevronRight size={16} color={Colors.primary} />
           </TouchableOpacity>
         </View>
         
         <Card style={styles.checklistCard}>
           <View style={styles.checklistItem}>
             <View style={styles.checklistIcon}>
-              <Clipboard size={20} color={colors.primary} />
+              <Clipboard size={20} color={Colors.primary} />
             </View>
             <View style={styles.checklistContent}>
               <Text style={typography.subtitle}>Pre-Departure</Text>
               <View style={styles.progressContainer}>
                 <ProgressBar 
                   progress={preDepartureCompletion}
-                  progressColor={colors.primary}
+                  progressColor={Colors.primary}
                   height={6}
                   animationDelay={500}
                 />
@@ -286,14 +286,14 @@ export default function DashboardScreen() {
           
           <View style={styles.checklistItem}>
             <View style={styles.checklistIcon}>
-              <Anchor size={20} color={colors.primary} />
+              <Anchor size={20} color={Colors.primary} />
             </View>
             <View style={styles.checklistContent}>
               <Text style={typography.subtitle}>Post-Trip</Text>
               <View style={styles.progressContainer}>
                 <ProgressBar 
                   progress={postTripCompletion}
-                  progressColor={colors.primary}
+                  progressColor={Colors.primary}
                   height={6}
                   animationDelay={700}
                 />
@@ -314,7 +314,7 @@ export default function DashboardScreen() {
             onPress={() => router.push('/(tabs)/maintenance')}
           >
             <Text style={styles.seeAllText}>See All</Text>
-            <ChevronRight size={16} color={colors.primary} />
+            <ChevronRight size={16} color={Colors.primary} />
           </TouchableOpacity>
         </View>
         
@@ -347,7 +347,7 @@ export default function DashboardScreen() {
             onPress={() => router.push('/trip-logs')}
           >
             <Text style={styles.seeAllText}>See All</Text>
-            <ChevronRight size={16} color={colors.primary} />
+            <ChevronRight size={16} color={Colors.primary} />
           </TouchableOpacity>
         </View>
         
@@ -361,11 +361,11 @@ export default function DashboardScreen() {
               <Text style={typography.subtitle}>{trip.title}</Text>
               <View style={styles.tripMeta}>
                 <View style={styles.tripMetaItem}>
-                  <Calendar size={16} color={colors.gray} />
+                  <Calendar size={16} color={Colors.textSecondary} />
                   <Text style={styles.tripMetaText}>{trip.date}</Text>
                 </View>
                 <View style={styles.tripMetaItem}>
-                  <Clock size={16} color={colors.gray} />
+                  <Clock size={16} color={Colors.textSecondary} />
                   <Text style={styles.tripMetaText}>{trip.duration}</Text>
                 </View>
               </View>
@@ -396,13 +396,13 @@ export default function DashboardScreen() {
             onPress={() => router.push('/(tabs)/reports')}
           >
             <Text style={styles.seeAllText}>See All</Text>
-            <ChevronRight size={16} color={colors.primary} />
+            <ChevronRight size={16} color={Colors.primary} />
           </TouchableOpacity>
         </View>
         
         <Card style={styles.analyticsCard}>
           <View style={styles.analyticsHeader}>
-            <BarChart3 size={24} color={colors.primary} />
+            <BarChart3 size={24} color={Colors.primary} />
             <Text style={[typography.subtitle, { marginLeft: 12 }]}>Performance Summary</Text>
           </View>
           
@@ -436,7 +436,7 @@ export default function DashboardScreen() {
         <AnimatedSection index={6}>
           <Card style={styles.alertCard}>
             <View style={styles.alertHeader}>
-              <AlertTriangle size={24} color={colors.error} />
+              <AlertTriangle size={24} color={Colors.accent} />
               <Text style={styles.alertTitle}>Critical Alerts</Text>
             </View>
             
@@ -450,7 +450,7 @@ export default function DashboardScreen() {
                 <Text style={styles.alertText} numberOfLines={1}>
                   {item.title} - Due {item.dueDate}
                 </Text>
-                <ChevronRight size={16} color={colors.gray} />
+                <ChevronRight size={16} color={Colors.textSecondary} />
               </TouchableOpacity>
             ))}
           </Card>
@@ -463,7 +463,7 @@ export default function DashboardScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: Colors.background,
   },
   contentContainer: {
     padding: 20,
@@ -479,10 +479,10 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: colors.white,
+    backgroundColor: Colors.white,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: colors.shadow,
+    shadowColor: Colors.primary,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
@@ -495,17 +495,17 @@ const styles = StyleSheet.create({
     width: 18,
     height: 18,
     borderRadius: 9,
-    backgroundColor: colors.error,
+    backgroundColor: Colors.accent,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: colors.white,
+    borderColor: Colors.white,
   },
   notificationCount: {
-    ...typography.caption,
-    color: colors.white,
+    fontSize: 12, fontWeight: "400", lineHeight: 16, letterSpacing: 0.4,
+    color: Colors.white,
     fontSize: 10,
-    fontWeight: '700',
+    fontWeight: "700",
   },
   section: {
     marginTop: 28,
@@ -522,12 +522,12 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     paddingHorizontal: 10,
     borderRadius: 8,
-    backgroundColor: colors.primaryLight,
+    backgroundColor: Colors.background,
   },
   seeAllText: {
-    ...typography.bodySmall,
-    color: colors.primary,
-    fontWeight: '600',
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
+    color: Colors.primary,
+    fontWeight: "600",
     marginRight: 4,
   },
   checklistCard: {
@@ -543,7 +543,7 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: colors.primaryLight,
+    backgroundColor: Colors.background,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 16,
@@ -555,21 +555,21 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   progressText: {
-    ...typography.caption,
-    color: colors.textSecondary,
+    fontSize: 12, fontWeight: "400", lineHeight: 16, letterSpacing: 0.4,
+    color: Colors.textSecondary,
     marginTop: 6,
   },
   divider: {
     height: 1,
-    backgroundColor: colors.border,
+    backgroundColor: Colors.textSecondary,
   },
   emptyCard: {
     padding: 30,
     alignItems: 'center',
   },
   emptyText: {
-    ...typography.body,
-    color: colors.textSecondary,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
+    color: Colors.textSecondary,
   },
   tripCard: {
     marginBottom: 12,
@@ -584,8 +584,8 @@ const styles = StyleSheet.create({
     marginRight: 16,
   },
   tripMetaText: {
-    ...typography.bodySmall,
-    color: colors.textSecondary,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
+    color: Colors.textSecondary,
     marginLeft: 6,
   },
   tripDetails: {
@@ -593,18 +593,17 @@ const styles = StyleSheet.create({
     marginTop: 16,
     paddingTop: 16,
     borderTopWidth: 1,
-    borderTopColor: colors.border,
+    borderTopColor: Colors.textSecondary,
   },
   tripDetail: {
     flex: 1,
   },
   tripDetailLabel: {
-    ...typography.caption,
-    color: colors.textSecondary,
+    fontSize: 12, fontWeight: "400", lineHeight: 16, letterSpacing: 0.4,
+    color: Colors.textSecondary,
   },
   tripDetailValue: {
-    ...typography.bodyMedium,
-    fontWeight: '600',
+    fontSize: 16, fontWeight: "600", lineHeight: 24, letterSpacing: 0.15,
     marginTop: 4,
   },
   analyticsCard: {
@@ -624,19 +623,18 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   analyticsLabel: {
-    ...typography.caption,
-    color: colors.textSecondary,
+    fontSize: 12, fontWeight: "400", lineHeight: 16, letterSpacing: 0.4,
+    color: Colors.textSecondary,
   },
   analyticsValue: {
-    ...typography.bodyMedium,
-    fontWeight: '600',
+    fontSize: 16, fontWeight: "600", lineHeight: 24, letterSpacing: 0.15,
     marginTop: 4,
   },
   alertCard: {
     marginTop: 28,
-    backgroundColor: `${colors.error}08`,
+    backgroundColor: `${Colors.accent}08`,
     borderWidth: 1,
-    borderColor: `${colors.error}20`,
+    borderColor: `${Colors.accent}20`,
   },
   alertHeader: {
     flexDirection: 'row',
@@ -644,8 +642,8 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   alertTitle: {
-    ...typography.subtitle,
-    color: colors.error,
+    fontSize: 18, fontWeight: "600", lineHeight: 26, letterSpacing: 0.15,
+    color: Colors.accent,
     marginLeft: 12,
   },
   alertItem: {
@@ -653,10 +651,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 12,
     borderTopWidth: 1,
-    borderTopColor: `${colors.error}20`,
+    borderTopColor: `${Colors.accent}20`,
   },
   alertText: {
-    ...typography.body,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
     flex: 1,
     marginHorizontal: 12,
   },

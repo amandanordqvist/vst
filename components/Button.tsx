@@ -8,9 +8,10 @@ import {
   TextStyle,
   View,
   Pressable,
-  Platform
+  Platform,
+  TouchableOpacityProps
 } from 'react-native';
-import { colors } from '@/constants/colors';
+import { Colors } from '@/constants/colors';
 import { typography } from '@/constants/typography';
 import Animated, { 
   useSharedValue, 
@@ -19,11 +20,12 @@ import Animated, {
   withSequence,
   withDelay
 } from 'react-native-reanimated';
+import theme from '@/constants/theme';
 
-type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'accent' | 'danger';
+type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'accent' | 'danger' | 'ghost';
 type ButtonSize = 'large' | 'medium' | 'small';
 
-interface ButtonProps {
+interface ButtonProps extends TouchableOpacityProps {
   title: string;
   onPress: () => void;
   variant?: ButtonVariant;
@@ -38,7 +40,7 @@ interface ButtonProps {
   animated?: boolean;
 }
 
-export function Button({
+const Button: React.FC<ButtonProps> = ({
   title,
   onPress,
   variant = 'primary',
@@ -51,7 +53,8 @@ export function Button({
   textStyle,
   fullWidth = false,
   animated = true,
-}: ButtonProps) {
+  ...props
+}) => {
   // Animation values
   const scale = useSharedValue(1);
   const opacity = useSharedValue(1);
@@ -81,15 +84,14 @@ export function Button({
   
   const buttonStyles = [
     styles.button,
-    styles[variant],
-    styles[size],
-    disabled && styles.disabled,
+    styles[`${variant}Button`],
+    disabled && styles.disabledButton,
     fullWidth && styles.fullWidth,
     style,
   ];
 
   const textStyles = [
-    typography.button,
+    styles.text,
     styles[`${variant}Text`],
     size === 'small' && typography.buttonSmall,
     disabled && styles.disabledText,
@@ -107,7 +109,7 @@ export function Button({
     <>
       {loading ? (
         <ActivityIndicator 
-          color={variant === 'primary' || variant === 'secondary' || variant === 'accent' || variant === 'danger' ? colors.white : colors.primary} 
+          color={variant === 'primary' || variant === 'secondary' || variant === 'accent' || variant === 'danger' ? Colors.white : Colors.primary} 
           size="small" 
         />
       ) : (
@@ -132,6 +134,7 @@ export function Button({
         onPress={handleButtonPress}
         disabled={disabled || loading}
         activeOpacity={0.8}
+        {...props}
       >
         {renderContent()}
       </TouchableOpacity>
@@ -151,7 +154,7 @@ export function Button({
       </Animated.View>
     </Pressable>
   );
-}
+};
 
 const styles = StyleSheet.create({
   button: {
@@ -171,24 +174,24 @@ const styles = StyleSheet.create({
   iconRight: {
     marginLeft: 10,
   },
-  primary: {
-    backgroundColor: colors.primary,
+  primaryButton: {
+    backgroundColor: Colors.primary,
   },
-  secondary: {
-    backgroundColor: colors.secondary,
+  secondaryButton: {
+    backgroundColor: Colors.secondary,
   },
-  accent: {
-    backgroundColor: colors.accent,
+  accentButton: {
+    backgroundColor: Colors.accent,
   },
-  danger: {
-    backgroundColor: colors.error,
+  dangerButton: {
+    backgroundColor: Colors.error,
   },
-  outline: {
+  outlineButton: {
     backgroundColor: 'transparent',
     borderWidth: 1.5,
-    borderColor: colors.primary,
+    borderColor: Colors.primary,
   },
-  ghost: {
+  ghostButton: {
     backgroundColor: 'transparent',
   },
   large: {
@@ -206,32 +209,38 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 10,
   },
-  disabled: {
-    backgroundColor: colors.lightGray,
-    borderColor: colors.lightGray,
+  disabledButton: {
+    backgroundColor: Colors.gray,
+    borderColor: Colors.gray,
   },
   disabledText: {
-    color: colors.gray,
+    color: Colors.gray,
   },
   primaryText: {
-    color: colors.white,
+    color: Colors.white,
   },
   secondaryText: {
-    color: colors.white,
+    color: Colors.white,
   },
   accentText: {
-    color: colors.white,
+    color: Colors.white,
   },
   dangerText: {
-    color: colors.white,
+    color: Colors.white,
   },
   outlineText: {
-    color: colors.primary,
+    color: Colors.primary,
   },
   ghostText: {
-    color: colors.primary,
+    color: Colors.primary,
   },
   fullWidth: {
     width: '100%',
   },
+  text: {
+    fontSize: theme.fontSize.md,
+    fontWeight: "500",
+  },
 });
+
+export default Button;

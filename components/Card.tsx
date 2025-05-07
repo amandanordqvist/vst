@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, View, ViewStyle, Pressable } from 'react-native';
-import { colors } from '@/constants/colors';
+import { Colors } from '@/constants/colors';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, interpolate } from 'react-native-reanimated';
 import { Platform } from 'react-native';
 
@@ -12,7 +12,7 @@ interface CardProps {
   animated?: boolean;
 }
 
-export function Card({ 
+export default function Card({ 
   children, 
   style, 
   variant = 'default', 
@@ -96,11 +96,11 @@ const styles = StyleSheet.create({
   card: {
     borderRadius: 16,
     padding: 20,
-    backgroundColor: colors.white,
+    backgroundColor: Colors.white,
     marginVertical: 10,
   },
   default: {
-    shadowColor: colors.shadow,
+    shadowColor: Colors.shadow,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
     shadowRadius: 8,
@@ -108,10 +108,10 @@ const styles = StyleSheet.create({
   },
   flat: {
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: Colors.border,
   },
   elevated: {
-    shadowColor: colors.shadow,
+    shadowColor: Colors.shadow,
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.2,
     shadowRadius: 16,

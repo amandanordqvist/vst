@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, View, ViewStyle } from 'react-native';
-import { colors } from '@/constants/colors';
+import { Colors } from '@/constants/colors';
 import Animated, { 
   useSharedValue, 
   useAnimatedStyle, 
@@ -20,10 +20,10 @@ interface ProgressBarProps {
   animationDelay?: number;
 }
 
-export function ProgressBar({
+export default function ProgressBar({
   progress,
-  progressColor = colors.primary,
-  backgroundColor = colors.lightGray,
+  progressColor = Colors.primary,
+  backgroundColor = Colors.gray,
   height = 8,
   style,
   animated = true,

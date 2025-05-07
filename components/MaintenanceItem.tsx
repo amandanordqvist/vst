@@ -1,33 +1,49 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { Card } from './Card';
-import { StatusBadge } from './StatusBadge';
+import { StyleSheet, Text, View, TouchableOpacity, TextStyle } from 'react-native';
+import Card from './Card';
+import StatusBadge from './StatusBadge';
 import { typography } from '@/constants/typography';
-import { colors } from '@/constants/colors';
+import { Colors } from '@/constants/colors';
 import { Calendar, Clock } from 'lucide-react-native';
 
-export interface MaintenanceItem {
+// Local typography styles with correct fontWeight casting
+const localTypography = {
+  h4: {
+    // Assuming h4 is similar to h3 or a defined style in your global theme
+    // If typography.h4 is globally defined and typed, this might not be needed
+    // For now, let's assume it needs casting like others if used directly from global theme.ts
+    // If it's not in global theme.ts, you'd define its properties here.
+    // This example assumes typography.h4 exists in the global theme.ts
+    fontSize: typography.h3?.fontSize || 18, // Fallback if h4 undefined
+    fontWeight: (typography.h3?.fontWeight || '600') as TextStyle['fontWeight'], 
+    color: typography.h3?.color || Colors.textPrimary,
+  },
+  bodySmall: {
+    fontSize: typography.bodySmall.fontSize,
+    fontWeight: typography.bodySmall.fontWeight as TextStyle['fontWeight'],
+    color: typography.bodySmall.color,
+  }
+};
+
+// This interface should align with the one in the store
+export interface MaintenanceItemTypeFromStore {
   id: string;
   title: string;
   description: string;
   dueDate: string;
-  priority: 'good' | 'warning' | 'critical' | 'neutral';
-  status: 'pending' | 'in-progress' | 'completed';
+  priority: 'critical' | 'high' | 'medium' | 'low';
+  status: 'pending' | 'in-progress' | 'completed' | 'cancelled';
   estimatedTime?: string;
+  // category?: string; // Add if needed from store
+  // instructions?: string[]; // Add if needed from store
+  // images?: string[]; // Add if needed from store
 }
 
-export interface MaintenanceItemProps {
-  id: string;
-  title: string;
-  description: string;
-  dueDate: string;
-  priority: 'good' | 'warning' | 'critical' | 'neutral';
-  status: 'pending' | 'in-progress' | 'completed';
-  estimatedTime?: string;
+export interface MaintenanceItemProps extends MaintenanceItemTypeFromStore {
   onPress: (id: string) => void;
 }
 
-export function MaintenanceItem({
+export default function MaintenanceItem({
   id,
   title,
   description,
@@ -38,13 +54,21 @@ export function MaintenanceItem({
   onPress,
 }: MaintenanceItemProps) {
   const statusMap = {
-    'pending': { label: 'Pending', status: 'neutral' as const },
-    'in-progress': { label: 'In Progress', status: 'warning' as const },
-    'completed': { label: 'Completed', status: 'good' as const },
+    'pending': { label: 'Pending', type: 'info' as const },
+    'in-progress': { label: 'In Progress', type: 'warning' as const },
+    'completed': { label: 'Completed', type: 'success' as const },
+    'cancelled': { label: 'Cancelled', type: 'info' as const },
   };
 
-  // Safely capitalize the priority label
-  const priorityLabel = priority ? priority.charAt(0).toUpperCase() + priority.slice(1) : 'Unknown';
+  const priorityTypeMap = {
+    'critical': 'warning' as const, // Or 'error' if you have an error StatusType
+    'high': 'warning' as const,
+    'medium': 'info' as const,
+    'low': 'info' as const,
+  };
+
+  const priorityLabel = priority.charAt(0).toUpperCase() + priority.slice(1);
+  const actualStatusDetails = statusMap[status];
 
   return (
     <TouchableOpacity 
@@ -53,35 +77,37 @@ export function MaintenanceItem({
     >
       <Card style={styles.card}>
         <View style={styles.header}>
-          <Text style={typography.h4}>{title}</Text>
+          <Text style={localTypography.h4}>{title}</Text>
           <StatusBadge 
-            status={priority} 
+            type={priorityTypeMap[priority]} 
             label={priorityLabel} 
           />
         </View>
         
-        <Text style={[typography.bodySmall, styles.description]} numberOfLines={2}>
+        <Text style={[localTypography.bodySmall, styles.description]} numberOfLines={2}>
           {description}
         </Text>
         
         <View style={styles.footer}>
           <View style={styles.infoItem}>
-            <Calendar size={16} color={colors.gray} />
-            <Text style={[typography.bodySmall, styles.infoText]}>{dueDate}</Text>
+            <Calendar size={16} color={Colors.gray} />
+            <Text style={[localTypography.bodySmall, styles.infoText]}>{dueDate}</Text>
           </View>
           
           {estimatedTime && (
             <View style={styles.infoItem}>
-              <Clock size={16} color={colors.gray} />
-              <Text style={[typography.bodySmall, styles.infoText]}>{estimatedTime}</Text>
+              <Clock size={16} color={Colors.gray} />
+              <Text style={[localTypography.bodySmall, styles.infoText]}>{estimatedTime}</Text>
             </View>
           )}
           
-          <StatusBadge 
-            status={statusMap[status].status} 
-            label={statusMap[status].label} 
-            style={styles.statusBadge}
-          />
+          {actualStatusDetails && (
+            <StatusBadge 
+              type={actualStatusDetails.type} 
+              label={actualStatusDetails.label} 
+              style={styles.statusBadge}
+            />
+          )}
         </View>
       </Card>
     </TouchableOpacity>

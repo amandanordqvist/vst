@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image, Alert, Platform } from 'react-native';
 import { Stack, useRouter, useLocalSearchParams } from 'expo-router';
-import { Card } from '@/components/Card';
-import { Button } from '@/components/Button';
+import Card from '@/components/Card';
+import Button from '@/components/Button';
 import { typography } from '@/constants/typography';
-import { colors } from '@/constants/colors';
+import { Colors } from '@/constants/colors';
 import { 
   ChevronLeft, 
   Calendar, 
@@ -126,7 +126,7 @@ export default function TripDetailsScreen() {
               onPress={() => router.back()}
               style={styles.headerButton}
             >
-              <ChevronLeft size={24} color={colors.text} />
+              <ChevronLeft size={24} color={Colors.textPrimaryPrimaryPrimary} />
             </TouchableOpacity>
           ),
           headerRight: () => (
@@ -135,13 +135,13 @@ export default function TripDetailsScreen() {
                 onPress={handleShareTrip}
                 style={styles.headerButton}
               >
-                <Share2 size={24} color={colors.text} />
+                <Share2 size={24} color={Colors.textPrimaryPrimaryPrimary} />
               </TouchableOpacity>
               <TouchableOpacity 
                 onPress={() => router.push(`/edit-trip?id=${trip.id}`)}
                 style={styles.headerButton}
               >
-                <Edit size={24} color={colors.text} />
+                <Edit size={24} color={Colors.textPrimaryPrimaryPrimary} />
               </TouchableOpacity>
             </View>
           ),
@@ -154,19 +154,19 @@ export default function TripDetailsScreen() {
           
           <View style={styles.tripMeta}>
             <View style={styles.tripMetaItem}>
-              <Calendar size={16} color={colors.gray} />
+              <Calendar size={16} color={Colors.textSecondary} />
               <Text style={styles.tripMetaText}>{trip.date}</Text>
             </View>
             
             <View style={styles.tripMetaItem}>
-              <Clock size={16} color={colors.gray} />
+              <Clock size={16} color={Colors.textSecondary} />
               <Text style={styles.tripMetaText}>{trip.duration}</Text>
             </View>
           </View>
           
           <View style={styles.vesselInfo}>
             <View style={styles.vesselIcon}>
-              <Anchor size={24} color={colors.primary} />
+              <Anchor size={24} color={Colors.primary} />
             </View>
             <View>
               <Text style={styles.vesselLabel}>Vessel</Text>
@@ -235,7 +235,7 @@ export default function TripDetailsScreen() {
           <Card style={styles.weatherCard}>
             <View style={styles.cardHeader}>
               <Text style={typography.h3}>Weather Conditions</Text>
-              <Wind size={20} color={colors.primary} />
+              <Wind size={20} color={Colors.primary} />
             </View>
             
             <Text style={styles.weatherText}>{trip.weatherConditions}</Text>
@@ -246,7 +246,7 @@ export default function TripDetailsScreen() {
           <Card style={styles.crewCard}>
             <View style={styles.cardHeader}>
               <Text style={typography.h3}>Crew</Text>
-              <User size={20} color={colors.primary} />
+              <User size={20} color={Colors.primary} />
             </View>
             
             <View style={styles.crewList}>
@@ -273,7 +273,7 @@ export default function TripDetailsScreen() {
           <View style={styles.cardHeader}>
             <Text style={typography.h3}>Photos</Text>
             <TouchableOpacity style={styles.downloadButton}>
-              <Download size={20} color={colors.primary} />
+              <Download size={20} color={Colors.primary} />
             </TouchableOpacity>
           </View>
           
@@ -300,10 +300,10 @@ export default function TripDetailsScreen() {
         <Button 
           title="Delete Trip Log" 
           variant="outline"
-          icon={<Trash2 size={20} color={colors.error} />}
+          icon={<Trash2 size={20} color={Colors.accent} />}
           onPress={handleDeleteTrip}
           style={styles.deleteButton}
-          textStyle={{ color: colors.error }}
+          textStyle={{ color: Colors.accent }}
         />
       </ScrollView>
     </>
@@ -313,7 +313,7 @@ export default function TripDetailsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: Colors.background,
   },
   contentContainer: {
     padding: 16,
@@ -324,7 +324,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: colors.background,
+    backgroundColor: Colors.background,
   },
   headerButton: {
     padding: 8,
@@ -345,8 +345,8 @@ const styles = StyleSheet.create({
     marginRight: 16,
   },
   tripMetaText: {
-    ...typography.bodySmall,
-    color: colors.textSecondary,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
+    color: Colors.textSecondary,
     marginLeft: 4,
   },
   vesselInfo: {
@@ -355,24 +355,23 @@ const styles = StyleSheet.create({
     marginTop: 16,
     paddingTop: 16,
     borderTopWidth: 1,
-    borderTopColor: colors.border,
+    borderTopColor: Colors.textSecondary,
   },
   vesselIcon: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: colors.primaryLight,
+    backgroundColor: Colors.background,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 12,
   },
   vesselLabel: {
-    ...typography.caption,
-    color: colors.textSecondary,
+    fontSize: 12, fontWeight: "400", lineHeight: 16, letterSpacing: 0.4,
+    color: Colors.textSecondary,
   },
   vesselName: {
-    ...typography.body,
-    fontWeight: '600',
+    fontSize: 16, fontWeight: "600", lineHeight: 24, letterSpacing: 0.15,
   },
   routeCard: {
     marginBottom: 16,
@@ -391,27 +390,26 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   departureMarker: {
-    backgroundColor: colors.primary,
+    backgroundColor: Colors.primary,
   },
   arrivalMarker: {
-    backgroundColor: colors.success,
+    backgroundColor: Colors.success,
   },
   routePointLabel: {
-    ...typography.caption,
-    color: colors.textSecondary,
+    fontSize: 12, fontWeight: "400", lineHeight: 16, letterSpacing: 0.4,
+    color: Colors.textSecondary,
   },
   routePointName: {
-    ...typography.body,
-    fontWeight: '600',
+    fontSize: 16, fontWeight: "600", lineHeight: 24, letterSpacing: 0.15,
   },
   routePointTime: {
-    ...typography.bodySmall,
-    color: colors.textSecondary,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
+    color: Colors.textSecondary,
   },
   routeLine: {
     width: 2,
     height: 40,
-    backgroundColor: colors.border,
+    backgroundColor: Colors.textSecondary,
     marginLeft: 7,
     marginVertical: 8,
   },
@@ -428,12 +426,12 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   statValue: {
-    ...typography.h3,
-    color: colors.primary,
+    fontSize: 24, fontWeight: "600", lineHeight: 32, letterSpacing: 0,
+    color: Colors.primary,
   },
   statLabel: {
-    ...typography.bodySmall,
-    color: colors.textSecondary,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
+    color: Colors.textSecondary,
   },
   weatherCard: {
     marginBottom: 16,
@@ -444,7 +442,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   weatherText: {
-    ...typography.body,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
     marginTop: 8,
   },
   crewCard: {
@@ -462,23 +460,23 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: colors.primaryLight,
+    backgroundColor: Colors.background,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 12,
   },
   crewInitial: {
-    ...typography.subtitle,
-    color: colors.primary,
+    fontSize: 18, fontWeight: "600", lineHeight: 26, letterSpacing: 0.15,
+    color: Colors.primary,
   },
   crewName: {
-    ...typography.body,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
   },
   notesCard: {
     marginBottom: 16,
   },
   notesText: {
-    ...typography.body,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
     marginTop: 8,
   },
   photosCard: {
@@ -497,6 +495,6 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   deleteButton: {
-    borderColor: colors.error,
+    borderColor: Colors.accent,
   },
 });

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput, Alert, Platform } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
-import { Card } from '@/components/Card';
-import { Button } from '@/components/Button';
-import { Input } from '@/components/Input';
+import Card from '@/components/Card';
+import Button from '@/components/Button';
+import Input from '@/components/Input';
 import { typography } from '@/constants/typography';
-import { colors } from '@/constants/colors';
+import { Colors } from '@/constants/colors';
 import { 
   ChevronLeft, 
   Calendar, 
@@ -156,7 +156,7 @@ export default function TripLogScreen() {
               onPress={() => router.back()}
               style={styles.headerButton}
             >
-              <ChevronLeft size={24} color={colors.text} />
+              <ChevronLeft size={24} color={Colors.textPrimaryPrimaryPrimary} />
             </TouchableOpacity>
           ),
         }} 
@@ -183,7 +183,7 @@ export default function TripLogScreen() {
               <Text style={styles.vesselButtonText}>
                 {selectedVessel ? selectedVessel.name : 'Select a vessel'}
               </Text>
-              <ChevronLeft size={20} color={colors.text} style={{ transform: [{ rotate: showVesselSelector ? '90deg' : '-90deg' }] }} />
+              <ChevronLeft size={20} color={Colors.textPrimaryPrimaryPrimary} style={{ transform: [{ rotate: showVesselSelector ? '90deg' : '-90deg' }] }} />
             </TouchableOpacity>
             
             {showVesselSelector && (
@@ -216,7 +216,7 @@ export default function TripLogScreen() {
             <View style={styles.halfInput}>
               <Text style={styles.inputLabel}>Date</Text>
               <View style={styles.dateInput}>
-                <Calendar size={20} color={colors.gray} />
+                <Calendar size={20} color={Colors.textSecondary} />
                 <TextInput
                   style={styles.dateTextInput}
                   value={date}
@@ -229,7 +229,7 @@ export default function TripLogScreen() {
             <View style={styles.halfInput}>
               <Text style={styles.inputLabel}>Start Time</Text>
               <View style={styles.dateInput}>
-                <Clock size={20} color={colors.gray} />
+                <Clock size={20} color={Colors.textSecondary} />
                 <TextInput
                   style={styles.dateTextInput}
                   value={startTime}
@@ -244,7 +244,7 @@ export default function TripLogScreen() {
             <View style={styles.halfInput}>
               <Text style={styles.inputLabel}>End Time</Text>
               <View style={styles.dateInput}>
-                <Clock size={20} color={colors.gray} />
+                <Clock size={20} color={Colors.textSecondary} />
                 <TextInput
                   style={styles.dateTextInput}
                   value={endTime}
@@ -269,7 +269,7 @@ export default function TripLogScreen() {
           <View style={styles.inputGroup}>
             <Text style={styles.inputLabel}>Departure Location</Text>
             <View style={styles.iconInput}>
-              <MapPin size={20} color={colors.gray} />
+              <MapPin size={20} color={Colors.textSecondary} />
               <TextInput
                 style={styles.iconTextInput}
                 placeholder="e.g., Marina Bay"
@@ -282,7 +282,7 @@ export default function TripLogScreen() {
           <View style={styles.inputGroup}>
             <Text style={styles.inputLabel}>Arrival Location</Text>
             <View style={styles.iconInput}>
-              <Anchor size={20} color={colors.gray} />
+              <Anchor size={20} color={Colors.textSecondary} />
               <TextInput
                 style={styles.iconTextInput}
                 placeholder="e.g., Sunset Harbor"
@@ -300,7 +300,7 @@ export default function TripLogScreen() {
             <View style={styles.halfInput}>
               <Text style={styles.inputLabel}>Fuel Used (gal)</Text>
               <View style={styles.dateInput}>
-                <Droplet size={20} color={colors.gray} />
+                <Droplet size={20} color={Colors.textSecondary} />
                 <TextInput
                   style={styles.dateTextInput}
                   value={fuelUsed}
@@ -326,7 +326,7 @@ export default function TripLogScreen() {
           <View style={styles.inputGroup}>
             <Text style={styles.inputLabel}>Weather Conditions</Text>
             <View style={styles.iconInput}>
-              <Wind size={20} color={colors.gray} />
+              <Wind size={20} color={Colors.textSecondary} />
               <TextInput
                 style={styles.iconTextInput}
                 placeholder="e.g., Sunny, light winds"
@@ -350,7 +350,7 @@ export default function TripLogScreen() {
                   style={styles.removeButton}
                   onPress={() => handleRemoveCrewMember(index)}
                 >
-                  <Trash2 size={16} color={colors.error} />
+                  <Trash2 size={16} color={Colors.accent} />
                 </TouchableOpacity>
               )}
             </View>
@@ -360,7 +360,7 @@ export default function TripLogScreen() {
             style={styles.addButton}
             onPress={handleAddCrewMember}
           >
-            <Plus size={16} color={colors.primary} />
+            <Plus size={16} color={Colors.primary} />
             <Text style={styles.addButtonText}>Add Crew Member</Text>
           </TouchableOpacity>
           
@@ -386,14 +386,14 @@ export default function TripLogScreen() {
             style={styles.photoButton}
             onPress={handleTakePhoto}
           >
-            <Camera size={24} color={colors.primary} />
+            <Camera size={24} color={Colors.primary} />
             <Text style={styles.photoButtonText}>Take Photo</Text>
           </TouchableOpacity>
         </Card>
         
         <Button 
           title="Save Trip Log"
-          icon={<Save size={20} color={colors.white} />}
+          icon={<Save size={20} color={Colors.white} />}
           onPress={handleSaveTrip}
           loading={isLoading}
           disabled={isLoading}
@@ -407,7 +407,7 @@ export default function TripLogScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: Colors.background,
   },
   contentContainer: {
     padding: 16,
@@ -423,17 +423,16 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   inputLabel: {
-    ...typography.bodySmall,
-    fontWeight: '500',
+    fontSize: 16, fontWeight: "500", lineHeight: 24, letterSpacing: 0.15,
     marginBottom: 4,
   },
   textInput: {
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: Colors.textSecondary,
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 10,
-    ...typography.body,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
   },
   row: {
     flexDirection: 'row',
@@ -447,7 +446,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: Colors.textSecondary,
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 10,
@@ -455,7 +454,7 @@ const styles = StyleSheet.create({
   dateTextInput: {
     marginLeft: 8,
     flex: 1,
-    ...typography.body,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
   },
   vesselSelector: {
     marginBottom: 16,
@@ -466,27 +465,27 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: Colors.textSecondary,
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 10,
   },
   vesselButtonText: {
-    ...typography.body,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
   },
   vesselDropdown: {
     position: 'absolute',
     top: 74,
     left: 0,
     right: 0,
-    backgroundColor: colors.white,
+    backgroundColor: Colors.white,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: Colors.textSecondary,
     borderRadius: 8,
     padding: 8,
     zIndex: 10,
     elevation: 3,
-    shadowColor: colors.text,
+    shadowColor: Colors.textPrimaryPrimaryPrimary,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
@@ -497,14 +496,14 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   selectedVesselOption: {
-    backgroundColor: colors.primaryLight,
+    backgroundColor: Colors.background,
   },
   vesselOptionText: {
-    ...typography.body,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
   },
   selectedVesselOptionText: {
-    color: colors.primary,
-    fontWeight: '600',
+    color: Colors.primary,
+    fontWeight: "600",
   },
   crewMemberContainer: {
     flexDirection: 'row',
@@ -525,9 +524,9 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
   addButtonText: {
-    ...typography.bodySmall,
-    color: colors.primary,
-    fontWeight: '600',
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
+    color: Colors.primary,
+    fontWeight: "600",
     marginLeft: 4,
   },
   notesInput: {
@@ -535,7 +534,7 @@ const styles = StyleSheet.create({
     paddingTop: 12,
   },
   photoDescription: {
-    color: colors.textSecondary,
+    color: Colors.textSecondary,
     marginTop: 4,
     marginBottom: 16,
   },
@@ -544,15 +543,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: colors.primary,
+    borderColor: Colors.primary,
     borderStyle: 'dashed',
     borderRadius: 8,
     paddingVertical: 16,
   },
   photoButtonText: {
-    ...typography.body,
-    color: colors.primary,
-    fontWeight: '500',
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
+    color: Colors.primary,
+    fontWeight: "500",
     marginLeft: 8,
   },
   saveButton: {
@@ -565,7 +564,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: Colors.textSecondary,
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 10,
@@ -573,6 +572,6 @@ const styles = StyleSheet.create({
   iconTextInput: {
     marginLeft: 8,
     flex: 1,
-    ...typography.body,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
   },
 });

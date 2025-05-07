@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Platform } from 'react-native';
-import { Card } from './Card';
+import Card from './Card';
 import { typography } from '@/constants/typography';
-import { colors } from '@/constants/colors';
+import { Colors } from '@/constants/colors';
 import { Wind, Droplets, AlertTriangle } from 'lucide-react-native';
 import Animated, { 
   useSharedValue, 
@@ -24,7 +24,7 @@ interface WeatherCardProps {
   onPress?: () => void;
 }
 
-export function WeatherCard({
+export default function WeatherCard({
   temperature,
   condition,
   iconUrl,
@@ -96,7 +96,7 @@ export function WeatherCard({
         <View style={styles.detailsContainer}>
           <View style={styles.detailItem}>
             <View style={styles.detailIcon}>
-              <Wind size={18} color={colors.secondary} />
+              <Wind size={18} color={Colors.secondary} />
             </View>
             <View>
               <Text style={styles.detailLabel}>Wind</Text>
@@ -107,7 +107,7 @@ export function WeatherCard({
           
           <View style={styles.detailItem}>
             <View style={styles.detailIcon}>
-              <Droplets size={18} color={colors.primary} />
+              <Droplets size={18} color={Colors.primary} />
             </View>
             <View>
               <Text style={styles.detailLabel}>Waves</Text>
@@ -122,7 +122,7 @@ export function WeatherCard({
             ]}>
               <AlertTriangle 
                 size={18} 
-                color={precipitation.includes('advisories') ? colors.warning : colors.gray} 
+                color={precipitation.includes('advisories') ? Colors.warning : Colors.gray} 
               />
             </View>
             <View>
@@ -160,7 +160,7 @@ export function WeatherCard({
       <View style={styles.detailsContainer}>
         <View style={styles.detailItem}>
           <Animated.View style={[styles.detailIcon, iconAnimatedStyle]}>
-            <Wind size={18} color={colors.secondary} />
+            <Wind size={18} color={Colors.secondary} />
           </Animated.View>
           <View>
             <Text style={styles.detailLabel}>Wind</Text>
@@ -171,7 +171,7 @@ export function WeatherCard({
         
         <View style={styles.detailItem}>
           <View style={styles.detailIcon}>
-            <Droplets size={18} color={colors.primary} />
+            <Droplets size={18} color={Colors.primary} />
           </View>
           <View>
             <Text style={styles.detailLabel}>Waves</Text>
@@ -187,7 +187,7 @@ export function WeatherCard({
           ]}>
             <AlertTriangle 
               size={18} 
-              color={precipitation.includes('advisories') ? colors.warning : colors.gray} 
+              color={precipitation.includes('advisories') ? Colors.warning : Colors.gray} 
             />
           </Animated.View>
           <View>
@@ -219,13 +219,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   temperature: {
-    ...typography.h1,
+    fontSize: 32, fontWeight: "700", lineHeight: 40, letterSpacing: -0.5,
     fontSize: 36,
     fontWeight: '700',
   },
   condition: {
-    ...typography.bodySmall,
-    color: colors.textSecondary,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
+    color: Colors.textPrimaryPrimaryPrimarySecondary,
     marginTop: 4,
   },
   weatherIcon: {
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
   },
   divider: {
     height: 1,
-    backgroundColor: colors.border,
+    backgroundColor: Colors.border,
     marginVertical: 16,
   },
   detailsContainer: {
@@ -250,28 +250,27 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: colors.lightGray,
+    backgroundColor: Colors.gray,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 10,
   },
   warningIcon: {
-    backgroundColor: `${colors.warning}20`,
+    backgroundColor: `${Colors.warning}20`,
   },
   detailLabel: {
-    ...typography.caption,
-    color: colors.textSecondary,
+    fontSize: 12, fontWeight: "400", lineHeight: 16, letterSpacing: 0.4,
+    color: Colors.textPrimaryPrimaryPrimarySecondary,
   },
   detailValue: {
-    ...typography.bodyMedium,
-    fontWeight: '600',
+    fontSize: 16, fontWeight: "600", lineHeight: 24, letterSpacing: 0.15,
     marginTop: 2,
   },
   detailSubvalue: {
-    ...typography.caption,
-    color: colors.textSecondary,
+    fontSize: 12, fontWeight: "400", lineHeight: 16, letterSpacing: 0.4,
+    color: Colors.textPrimaryPrimaryPrimarySecondary,
   },
   warningText: {
-    color: colors.warning,
+    color: Colors.warning,
   },
 });

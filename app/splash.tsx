@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Image, ActivityIndicator } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Button } from '@/components/Button';
+import Button from '@/components/Button';
 import { typography } from '@/constants/typography';
-import { colors } from '@/constants/colors';
+import { Colors } from '@/constants/colors';
 import { useAuthStore } from '@/store/auth-store';
 import Animated, { 
   useSharedValue, 
@@ -29,7 +29,7 @@ export default function SplashScreen() {
   useEffect(() => {
     if (isAuthenticated) {
       // If user is already authenticated, redirect to main app
-      router.replace('/tabs');
+      router.replace('/(tabs)');
     }
   }, [isAuthenticated, router]);
   
@@ -81,27 +81,15 @@ export default function SplashScreen() {
                 style={styles.logo} 
                 resizeMode="contain"
               />
-              <Text style={styles.title}>VST Boat Management</Text>
+              <Text style={styles.title}>VST</Text>
               <Text style={styles.subtitle}>
-                The complete solution for vessel owners, captains, and maintenance crews
+                Monitor and manage your vessel operations
               </Text>
+              <ActivityIndicator size="large" color={Colors.white} style={styles.loader} />
             </View>
             
-            <View style={styles.buttonContainer}>
-              <Button
-                title="Get Started"
-                onPress={() => router.push('/welcome')}
-                fullWidth
-                style={styles.button}
-              />
-              
-              <Button
-                title="Log In"
-                onPress={() => router.push('/auth/login')}
-                variant="outline"
-                fullWidth
-                style={styles.button}
-              />
+            <View style={styles.versionContainer}>
+              <Text style={styles.versionText}>Version 1.0.0</Text>
             </View>
           </View>
         </SafeAreaView>
@@ -122,27 +110,15 @@ export default function SplashScreen() {
               style={styles.logo} 
               resizeMode="contain"
             />
-            <Text style={styles.title}>VST Boat Management</Text>
+            <Text style={styles.title}>VST</Text>
             <Text style={styles.subtitle}>
-              The complete solution for vessel owners, captains, and maintenance crews
+              Monitor and manage your vessel operations
             </Text>
+            <ActivityIndicator size="large" color={Colors.white} style={styles.loader} />
           </Animated.View>
           
-          <Animated.View style={[styles.buttonContainer, contentAnimatedStyle]}>
-            <Button
-              title="Get Started"
-              onPress={() => router.push('/welcome')}
-              fullWidth
-              style={styles.button}
-            />
-            
-            <Button
-              title="Log In"
-              onPress={() => router.push('/auth/login')}
-              variant="outline"
-              fullWidth
-              style={styles.button}
-            />
+          <Animated.View style={[styles.versionContainer, contentAnimatedStyle]}>
+            <Text style={styles.versionText}>Version 1.0.0</Text>
           </Animated.View>
         </View>
       </SafeAreaView>
@@ -153,7 +129,7 @@ export default function SplashScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: Colors.primary,
   },
   content: {
     flex: 1,
@@ -171,29 +147,36 @@ const styles = StyleSheet.create({
     borderRadius: 75,
     marginBottom: 32,
     borderWidth: 3,
-    borderColor: colors.white,
-    shadowColor: colors.shadow,
+    borderColor: Colors.white,
+    shadowColor: Colors.primary,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 8,
     elevation: 8,
   },
   title: {
-    ...typography.h1,
+    fontSize: 32, fontWeight: "700", lineHeight: 40, letterSpacing: -0.5,
     textAlign: 'center',
     marginBottom: 16,
+    color: Colors.white,
   },
   subtitle: {
-    ...typography.body,
     textAlign: 'center',
-    color: colors.textSecondary,
+    color: Colors.white,
     maxWidth: '80%',
+    fontSize: 18,
   },
-  buttonContainer: {
+  loader: {
+    marginTop: 40,
+  },
+  versionContainer: {
     width: '100%',
-    marginBottom: 24,
+    alignItems: 'center',
+    paddingBottom: 20,
   },
-  button: {
-    marginBottom: 16,
+  versionText: {
+    fontSize: 12, fontWeight: "400", lineHeight: 16, letterSpacing: 0.4,
+    color: Colors.white,
+    opacity: 0.7,
   },
 });

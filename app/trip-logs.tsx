@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
-import { Card } from '@/components/Card';
-import { Button } from '@/components/Button';
+import Card from '@/components/Card';
+import Button from '@/components/Button';
 import { typography } from '@/constants/typography';
-import { colors } from '@/constants/colors';
+import { Colors } from '@/constants/colors';
 import { 
   ChevronLeft, 
   Calendar, 
@@ -53,7 +53,7 @@ export default function TripLogsScreen() {
   if (isLoading) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color={colors.primary} />
+        <ActivityIndicator size="large" color={Colors.primary} />
       </View>
     );
   }
@@ -68,7 +68,7 @@ export default function TripLogsScreen() {
               onPress={() => router.back()}
               style={styles.headerButton}
             >
-              <ChevronLeft size={24} color={colors.text} />
+              <ChevronLeft size={24} color={Colors.textPrimaryPrimaryPrimary} />
             </TouchableOpacity>
           ),
         }} 
@@ -78,7 +78,7 @@ export default function TripLogsScreen() {
         <View style={styles.header}>
           <Button 
             title="New Trip Log" 
-            icon={<Plus size={20} color={colors.white} />}
+            icon={<Plus size={20} color={Colors.white} />}
             onPress={() => router.push('/trip-log')}
           />
           
@@ -86,7 +86,7 @@ export default function TripLogsScreen() {
             style={styles.filterButton}
             onPress={() => setShowFilters(!showFilters)}
           >
-            <Filter size={20} color={colors.text} />
+            <Filter size={20} color={Colors.textPrimaryPrimaryPrimary} />
           </TouchableOpacity>
         </View>
         
@@ -167,29 +167,29 @@ export default function TripLogsScreen() {
                 >
                   <View style={styles.tripHeader}>
                     <Text style={typography.subtitle}>{trip.title}</Text>
-                    <ChevronRight size={20} color={colors.gray} />
+                    <ChevronRight size={20} color={Colors.textSecondary} />
                   </View>
                   
                   <View style={styles.tripMeta}>
                     <View style={styles.tripMetaItem}>
-                      <Calendar size={16} color={colors.gray} />
+                      <Calendar size={16} color={Colors.textSecondary} />
                       <Text style={styles.tripMetaText}>{trip.date}</Text>
                     </View>
                     
                     <View style={styles.tripMetaItem}>
-                      <Anchor size={16} color={colors.gray} />
+                      <Anchor size={16} color={Colors.textSecondary} />
                       <Text style={styles.tripMetaText}>{getVesselName(trip.vesselId)}</Text>
                     </View>
                   </View>
                   
                   <View style={styles.tripDetails}>
                     <View style={styles.tripDetailItem}>
-                      <Clock size={16} color={colors.primary} />
+                      <Clock size={16} color={Colors.primary} />
                       <Text style={styles.tripDetailText}>{trip.duration}</Text>
                     </View>
                     
                     <View style={styles.tripDetailItem}>
-                      <MapPin size={16} color={colors.primary} />
+                      <MapPin size={16} color={Colors.primary} />
                       <Text style={styles.tripDetailText} numberOfLines={1}>
                         {trip.departureLocation} to {trip.arrivalLocation}
                       </Text>
@@ -216,7 +216,7 @@ export default function TripLogsScreen() {
                   {trip.crewMembers && trip.crewMembers.length > 0 && (
                     <View style={styles.crewSection}>
                       <View style={styles.crewHeader}>
-                        <User size={16} color={colors.gray} />
+                        <User size={16} color={Colors.textSecondary} />
                         <Text style={styles.crewTitle}>Crew: </Text>
                         <Text style={styles.crewNames}>
                           {trip.crewMembers.join(', ')}
@@ -247,14 +247,14 @@ export default function TripLogsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: Colors.background,
     padding: 16,
   },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.background,
+    backgroundColor: Colors.background,
   },
   headerButton: {
     padding: 8,
@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: colors.lightGray,
+    backgroundColor: Colors.gray,
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 8,
@@ -284,14 +284,14 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   activeFilterOption: {
-    backgroundColor: colors.primaryLight,
+    backgroundColor: Colors.background,
   },
   filterOptionText: {
-    ...typography.body,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
   },
   activeFilterOptionText: {
-    color: colors.primary,
-    fontWeight: '600',
+    color: Colors.primary,
+    fontWeight: "600",
   },
   statsCard: {
     marginBottom: 16,
@@ -306,12 +306,12 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   statValue: {
-    ...typography.h3,
-    color: colors.primary,
+    fontSize: 24, fontWeight: "600", lineHeight: 32, letterSpacing: 0,
+    color: Colors.primary,
   },
   statLabel: {
-    ...typography.bodySmall,
-    color: colors.textSecondary,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
+    color: Colors.textSecondary,
   },
   sectionTitle: {
     marginBottom: 12,
@@ -342,8 +342,8 @@ const styles = StyleSheet.create({
     marginRight: 16,
   },
   tripMetaText: {
-    ...typography.bodySmall,
-    color: colors.textSecondary,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
+    color: Colors.textSecondary,
     marginLeft: 4,
   },
   tripDetails: {
@@ -355,7 +355,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   tripDetailText: {
-    ...typography.body,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
     marginLeft: 8,
   },
   tripStats: {
@@ -364,36 +364,34 @@ const styles = StyleSheet.create({
     marginTop: 12,
     paddingTop: 12,
     borderTopWidth: 1,
-    borderTopColor: colors.border,
+    borderTopColor: Colors.textSecondary,
   },
   tripStat: {
     alignItems: 'center',
   },
   tripStatLabel: {
-    ...typography.caption,
-    color: colors.textSecondary,
+    fontSize: 12, fontWeight: "400", lineHeight: 16, letterSpacing: 0.4,
+    color: Colors.textSecondary,
   },
   tripStatValue: {
-    ...typography.body,
-    fontWeight: '600',
+    fontSize: 16, fontWeight: "600", lineHeight: 24, letterSpacing: 0.15,
   },
   crewSection: {
     marginTop: 12,
     paddingTop: 12,
     borderTopWidth: 1,
-    borderTopColor: colors.border,
+    borderTopColor: Colors.textSecondary,
   },
   crewHeader: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   crewTitle: {
-    ...typography.bodySmall,
-    fontWeight: '600',
+    fontSize: 16, fontWeight: "600", lineHeight: 24, letterSpacing: 0.15,
     marginLeft: 4,
   },
   crewNames: {
-    ...typography.bodySmall,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
     flex: 1,
   },
   emptyState: {
@@ -402,7 +400,7 @@ const styles = StyleSheet.create({
     padding: 32,
   },
   emptyStateText: {
-    ...typography.body,
-    color: colors.textSecondary,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
+    color: Colors.textSecondary,
   },
 });

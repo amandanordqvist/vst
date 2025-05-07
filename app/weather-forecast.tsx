@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
-import { Card } from '@/components/Card';
+import Card from '@/components/Card';
 import { typography } from '@/constants/typography';
-import { colors } from '@/constants/colors';
+import { Colors } from '@/constants/colors';
 import { 
   ChevronLeft, 
   Cloud, 
@@ -40,16 +40,16 @@ export default function WeatherForecastScreen() {
     switch (condition.toLowerCase()) {
       case 'clear':
       case 'sunny':
-        return <Sun size={24} color={colors.warning} />;
+        return <Sun size={24} color={Colors.warning} />;
       case 'partly cloudy':
-        return <Cloud size={24} color={colors.gray} />;
+        return <Cloud size={24} color={Colors.textSecondary} />;
       case 'cloudy':
-        return <Cloud size={24} color={colors.gray} />;
+        return <Cloud size={24} color={Colors.textSecondary} />;
       case 'rain':
       case 'showers':
-        return <CloudRain size={24} color={colors.primary} />;
+        return <CloudRain size={24} color={Colors.primary} />;
       default:
-        return <Cloud size={24} color={colors.gray} />;
+        return <Cloud size={24} color={Colors.textSecondary} />;
     }
   };
   
@@ -62,7 +62,7 @@ export default function WeatherForecastScreen() {
   if (isLoading) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color={colors.primary} />
+        <ActivityIndicator size="large" color={Colors.primary} />
       </View>
     );
   }
@@ -77,7 +77,7 @@ export default function WeatherForecastScreen() {
               onPress={() => router.back()}
               style={styles.headerButton}
             >
-              <ChevronLeft size={24} color={colors.text} />
+              <ChevronLeft size={24} color={Colors.textPrimaryPrimaryPrimary} />
             </TouchableOpacity>
           ),
         }} 
@@ -109,7 +109,7 @@ export default function WeatherForecastScreen() {
           
           <View style={styles.weatherDetails}>
             <View style={styles.weatherDetailItem}>
-              <Wind size={20} color={colors.gray} />
+              <Wind size={20} color={Colors.textSecondary} />
               <View style={styles.weatherDetailText}>
                 <Text style={styles.weatherDetailLabel}>Wind</Text>
                 <Text style={styles.weatherDetailValue}>{weather.windSpeed} knots</Text>
@@ -117,7 +117,7 @@ export default function WeatherForecastScreen() {
             </View>
             
             <View style={styles.weatherDetailItem}>
-              <Compass size={20} color={colors.gray} />
+              <Compass size={20} color={Colors.textSecondary} />
               <View style={styles.weatherDetailText}>
                 <Text style={styles.weatherDetailLabel}>Direction</Text>
                 <Text style={styles.weatherDetailValue}>{weather.windDirection}</Text>
@@ -125,7 +125,7 @@ export default function WeatherForecastScreen() {
             </View>
             
             <View style={styles.weatherDetailItem}>
-              <Droplets size={20} color={colors.gray} />
+              <Droplets size={20} color={Colors.textSecondary} />
               <View style={styles.weatherDetailText}>
                 <Text style={styles.weatherDetailLabel}>Humidity</Text>
                 <Text style={styles.weatherDetailValue}>{weather.humidity}%</Text>
@@ -133,7 +133,7 @@ export default function WeatherForecastScreen() {
             </View>
             
             <View style={styles.weatherDetailItem}>
-              <Thermometer size={20} color={colors.gray} />
+              <Thermometer size={20} color={Colors.textSecondary} />
               <View style={styles.weatherDetailText}>
                 <Text style={styles.weatherDetailLabel}>Feels Like</Text>
                 <Text style={styles.weatherDetailValue}>{weather.feelsLike}°</Text>
@@ -147,25 +147,25 @@ export default function WeatherForecastScreen() {
           
           <View style={styles.marineConditionsGrid}>
             <View style={styles.marineConditionItem}>
-              <Waves size={20} color={colors.primary} />
+              <Waves size={20} color={Colors.primary} />
               <Text style={styles.marineConditionLabel}>Wave Height</Text>
               <Text style={styles.marineConditionValue}>{weather.waveHeight} ft</Text>
             </View>
             
             <View style={styles.marineConditionItem}>
-              <Compass size={20} color={colors.primary} />
+              <Compass size={20} color={Colors.primary} />
               <Text style={styles.marineConditionLabel}>Wave Direction</Text>
               <Text style={styles.marineConditionValue}>{weather.waveDirection}</Text>
             </View>
             
             <View style={styles.marineConditionItem}>
-              <Wind size={20} color={colors.primary} />
+              <Wind size={20} color={Colors.primary} />
               <Text style={styles.marineConditionLabel}>Wind Gusts</Text>
               <Text style={styles.marineConditionValue}>{weather.windGusts} knots</Text>
             </View>
             
             <View style={styles.marineConditionItem}>
-              <Cloud size={20} color={colors.primary} />
+              <Cloud size={20} color={Colors.primary} />
               <Text style={styles.marineConditionLabel}>Visibility</Text>
               <Text style={styles.marineConditionValue}>{weather.visibility} nm</Text>
             </View>
@@ -208,12 +208,12 @@ export default function WeatherForecastScreen() {
               <Text style={styles.forecastCondition}>{day.condition}</Text>
               
               <View style={styles.forecastDetail}>
-                <Wind size={16} color={colors.gray} />
+                <Wind size={16} color={Colors.textSecondary} />
                 <Text style={styles.forecastDetailText}>{day.windSpeed} knots</Text>
               </View>
               
               <View style={styles.forecastDetail}>
-                <Droplets size={16} color={colors.gray} />
+                <Droplets size={16} color={Colors.textSecondary} />
                 <Text style={styles.forecastDetailText}>{day.precipitation}%</Text>
               </View>
             </Card>
@@ -254,7 +254,7 @@ export default function WeatherForecastScreen() {
           
           <View style={styles.sunInfo}>
             <View style={styles.sunInfoItem}>
-              <Sun size={20} color={colors.warning} />
+              <Sun size={20} color={Colors.warning} />
               <View>
                 <Text style={styles.sunInfoLabel}>Sunrise</Text>
                 <Text style={styles.sunInfoValue}>{weather.sunrise}</Text>
@@ -262,7 +262,7 @@ export default function WeatherForecastScreen() {
             </View>
             
             <View style={styles.sunInfoItem}>
-              <Sun size={20} color={colors.error} />
+              <Sun size={20} color={Colors.accent} />
               <View>
                 <Text style={styles.sunInfoLabel}>Sunset</Text>
                 <Text style={styles.sunInfoValue}>{weather.sunset}</Text>
@@ -278,7 +278,7 @@ export default function WeatherForecastScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: Colors.background,
   },
   contentContainer: {
     padding: 16,
@@ -288,7 +288,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.background,
+    backgroundColor: Colors.background,
   },
   headerButton: {
     padding: 8,
@@ -302,14 +302,14 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   currentDate: {
-    ...typography.bodySmall,
-    color: colors.textSecondary,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
+    color: Colors.textSecondary,
   },
   currentWeatherIcon: {
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: colors.lightGray,
+    backgroundColor: Colors.gray,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -318,20 +318,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   temperature: {
-    ...typography.h1,
+    fontSize: 32, fontWeight: "700", lineHeight: 40, letterSpacing: -0.5,
     fontSize: 64,
-    fontWeight: '300',
+    fontWeight: "300",
   },
   condition: {
-    ...typography.subtitle,
-    color: colors.textSecondary,
+    fontSize: 18, fontWeight: "600", lineHeight: 26, letterSpacing: 0.15,
+    color: Colors.textSecondary,
   },
   weatherDetails: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     marginTop: 24,
     borderTopWidth: 1,
-    borderTopColor: colors.border,
+    borderTopColor: Colors.textSecondary,
     paddingTop: 16,
   },
   weatherDetailItem: {
@@ -344,12 +344,11 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   weatherDetailLabel: {
-    ...typography.caption,
-    color: colors.textSecondary,
+    fontSize: 12, fontWeight: "400", lineHeight: 16, letterSpacing: 0.4,
+    color: Colors.textSecondary,
   },
   weatherDetailValue: {
-    ...typography.body,
-    fontWeight: '500',
+    fontSize: 16, fontWeight: "500", lineHeight: 24, letterSpacing: 0.15,
   },
   marineConditionsCard: {
     marginBottom: 16,
@@ -365,18 +364,17 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   marineConditionLabel: {
-    ...typography.bodySmall,
-    color: colors.textSecondary,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
+    color: Colors.textSecondary,
     marginTop: 4,
   },
   marineConditionValue: {
-    ...typography.body,
-    fontWeight: '600',
+    fontSize: 16, fontWeight: "600", lineHeight: 24, letterSpacing: 0.15,
   },
   advisoryContainer: {
     marginTop: 8,
     borderTopWidth: 1,
-    borderTopColor: colors.border,
+    borderTopColor: Colors.textSecondary,
     paddingTop: 16,
   },
   advisoryItem: {
@@ -388,16 +386,16 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: colors.error,
+    backgroundColor: Colors.accent,
     marginRight: 8,
   },
   advisoryText: {
-    ...typography.body,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
     flex: 1,
   },
   noAdvisoryText: {
-    ...typography.body,
-    color: colors.textSecondary,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
+    color: Colors.textSecondary,
     marginTop: 8,
   },
   forecastTitle: {
@@ -413,29 +411,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   forecastDay: {
-    ...typography.bodySmall,
-    fontWeight: '600',
+    fontSize: 16, fontWeight: "600", lineHeight: 24, letterSpacing: 0.15,
   },
   forecastDate: {
-    ...typography.caption,
-    color: colors.textSecondary,
+    fontSize: 12, fontWeight: "400", lineHeight: 16, letterSpacing: 0.4,
+    color: Colors.textSecondary,
   },
   forecastIconContainer: {
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: colors.lightGray,
+    backgroundColor: Colors.gray,
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 12,
   },
   forecastTemp: {
-    ...typography.body,
-    fontWeight: '600',
+    fontSize: 16, fontWeight: "600", lineHeight: 24, letterSpacing: 0.15,
   },
   forecastCondition: {
-    ...typography.caption,
-    color: colors.textSecondary,
+    fontSize: 12, fontWeight: "400", lineHeight: 16, letterSpacing: 0.4,
+    color: Colors.textSecondary,
     marginBottom: 8,
   },
   forecastDetail: {
@@ -444,8 +440,8 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   forecastDetailText: {
-    ...typography.caption,
-    color: colors.textSecondary,
+    fontSize: 12, fontWeight: "400", lineHeight: 16, letterSpacing: 0.4,
+    color: Colors.textSecondary,
     marginLeft: 4,
   },
   tideCard: {
@@ -459,8 +455,8 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   tideDate: {
-    ...typography.bodySmall,
-    color: colors.textSecondary,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
+    color: Colors.textSecondary,
   },
   tideChart: {
     height: 120,
@@ -473,7 +469,7 @@ const styles = StyleSheet.create({
     right: 0,
     top: '50%',
     height: 2,
-    backgroundColor: colors.border,
+    backgroundColor: Colors.textSecondary,
   },
   tidePoint: {
     position: 'absolute',
@@ -485,25 +481,24 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: colors.primary,
+    backgroundColor: Colors.primary,
   },
   tideTime: {
-    ...typography.caption,
+    fontSize: 12, fontWeight: "400", lineHeight: 16, letterSpacing: 0.4,
     marginTop: 4,
   },
   tideHeight: {
-    ...typography.bodySmall,
-    fontWeight: '600',
+    fontSize: 16, fontWeight: "600", lineHeight: 24, letterSpacing: 0.15,
   },
   tideType: {
-    ...typography.caption,
-    color: colors.textSecondary,
+    fontSize: 12, fontWeight: "400", lineHeight: 16, letterSpacing: 0.4,
+    color: Colors.textSecondary,
   },
   sunInfo: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     borderTopWidth: 1,
-    borderTopColor: colors.border,
+    borderTopColor: Colors.textSecondary,
     paddingTop: 16,
   },
   sunInfoItem: {
@@ -511,13 +506,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   sunInfoLabel: {
-    ...typography.caption,
-    color: colors.textSecondary,
+    fontSize: 12, fontWeight: "400", lineHeight: 16, letterSpacing: 0.4,
+    color: Colors.textSecondary,
     marginLeft: 8,
   },
   sunInfoValue: {
-    ...typography.body,
-    fontWeight: '500',
+    fontSize: 16, fontWeight: "500", lineHeight: 24, letterSpacing: 0.15,
     marginLeft: 8,
   },
 });

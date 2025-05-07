@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Input } from '@/components/Input';
-import { Button } from '@/components/Button';
+import Input from '@/components/Input';
+import Button from '@/components/Button';
 import { typography } from '@/constants/typography';
-import { colors } from '@/constants/colors';
+import { Colors } from '@/constants/colors';
 import { 
   ChevronLeft, 
   Calendar, 
@@ -66,7 +66,7 @@ export default function NewMaintenanceScreen() {
               onPress={() => router.back()}
               style={styles.headerButton}
             >
-              <ChevronLeft size={24} color={colors.text} />
+              <ChevronLeft size={24} color={Colors.textPrimaryPrimaryPrimary} />
             </TouchableOpacity>
           ),
         }} 
@@ -112,7 +112,7 @@ export default function NewMaintenanceScreen() {
                   placeholder="MM/DD/YYYY"
                   value={dueDate}
                   onChangeText={setDueDate}
-                  leftIcon={<Calendar size={20} color={colors.gray} />}
+                  leftIcon={<Calendar size={20} color={Colors.textSecondary} />}
                 />
               </View>
               
@@ -122,7 +122,7 @@ export default function NewMaintenanceScreen() {
                   placeholder="e.g. 2 hours"
                   value={estimatedTime}
                   onChangeText={setEstimatedTime}
-                  leftIcon={<Clock size={20} color={colors.gray} />}
+                  leftIcon={<Clock size={20} color={Colors.textSecondary} />}
                 />
               </View>
             </View>
@@ -134,13 +134,13 @@ export default function NewMaintenanceScreen() {
                   style={[
                     styles.priorityButton,
                     priority === 'good' ? styles.priorityButtonActive : null,
-                    { backgroundColor: priority === 'good' ? `${colors.success}20` : colors.lightGray }
+                    { backgroundColor: priority === 'good' ? `${Colors.success}20` : Colors.gray }
                   ]}
                   onPress={() => setPriority('good')}
                 >
                   <Text style={[
                     styles.priorityButtonText,
-                    priority === 'good' ? { color: colors.success } : null,
+                    priority === 'good' ? { color: Colors.success } : null,
                   ]}>
                     Normal
                   </Text>
@@ -150,13 +150,13 @@ export default function NewMaintenanceScreen() {
                   style={[
                     styles.priorityButton,
                     priority === 'warning' ? styles.priorityButtonActive : null,
-                    { backgroundColor: priority === 'warning' ? `${colors.warning}20` : colors.lightGray }
+                    { backgroundColor: priority === 'warning' ? `${Colors.warning}20` : Colors.gray }
                   ]}
                   onPress={() => setPriority('warning')}
                 >
                   <Text style={[
                     styles.priorityButtonText,
-                    priority === 'warning' ? { color: colors.warning } : null,
+                    priority === 'warning' ? { color: Colors.warning } : null,
                   ]}>
                     High
                   </Text>
@@ -166,13 +166,13 @@ export default function NewMaintenanceScreen() {
                   style={[
                     styles.priorityButton,
                     priority === 'critical' ? styles.priorityButtonActive : null,
-                    { backgroundColor: priority === 'critical' ? `${colors.error}20` : colors.lightGray }
+                    { backgroundColor: priority === 'critical' ? `${Colors.accent}20` : Colors.gray }
                   ]}
                   onPress={() => setPriority('critical')}
                 >
                   <Text style={[
                     styles.priorityButtonText,
-                    priority === 'critical' ? { color: colors.error } : null,
+                    priority === 'critical' ? { color: Colors.accent } : null,
                   ]}>
                     Critical
                   </Text>
@@ -186,7 +186,7 @@ export default function NewMaintenanceScreen() {
                 style={styles.vesselSelector}
                 onPress={() => setShowVesselPicker(!showVesselPicker)}
               >
-                <Anchor size={20} color={colors.gray} />
+                <Anchor size={20} color={Colors.textSecondary} />
                 <Text style={styles.vesselSelectorText}>
                   {selectedVesselId 
                     ? vessels.find(v => v.id === selectedVesselId)?.name || 'Select Vessel'
@@ -232,7 +232,7 @@ export default function NewMaintenanceScreen() {
             </View>
             
             <TouchableOpacity style={styles.addImagesButton}>
-              <ImageIcon size={20} color={colors.primary} />
+              <ImageIcon size={20} color={Colors.primary} />
               <Text style={styles.addImagesText}>Add Reference Images</Text>
             </TouchableOpacity>
             
@@ -253,7 +253,7 @@ export default function NewMaintenanceScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: Colors.background,
   },
   keyboardAvoidingView: {
     flex: 1,
@@ -268,17 +268,16 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   label: {
-    ...typography.bodySmall,
-    fontWeight: '500',
+    fontSize: 16, fontWeight: "500", lineHeight: 24, letterSpacing: 0.15,
     marginBottom: 8,
   },
   textArea: {
-    backgroundColor: colors.white,
+    backgroundColor: Colors.white,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: Colors.textSecondary,
     borderRadius: 8,
     padding: 12,
-    ...typography.body,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
     minHeight: 100,
   },
   row: {
@@ -304,26 +303,25 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   priorityButtonText: {
-    ...typography.body,
-    fontWeight: '500',
+    fontSize: 16, fontWeight: "500", lineHeight: 24, letterSpacing: 0.15,
   },
   vesselSelector: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.white,
+    backgroundColor: Colors.white,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: Colors.textSecondary,
     borderRadius: 8,
     padding: 12,
   },
   vesselSelectorText: {
-    ...typography.body,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
     marginLeft: 8,
   },
   vesselDropdown: {
-    backgroundColor: colors.white,
+    backgroundColor: Colors.white,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: Colors.textSecondary,
     borderRadius: 8,
     marginTop: 4,
     padding: 8,
@@ -333,24 +331,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
   },
   vesselOptionText: {
-    ...typography.body,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
   },
   vesselOptionSelected: {
-    color: colors.primary,
-    fontWeight: '600',
+    color: Colors.primary,
+    fontWeight: "600",
   },
   addImagesButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.primaryLight,
+    backgroundColor: Colors.background,
     borderRadius: 8,
     padding: 16,
     marginBottom: 24,
   },
   addImagesText: {
     ...typography.button,
-    color: colors.primary,
+    color: Colors.primary,
     marginLeft: 8,
   },
   submitButton: {

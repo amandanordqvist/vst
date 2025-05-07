@@ -11,11 +11,11 @@ import {
 } from 'react-native';
 import { Stack, useRouter, useLocalSearchParams } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Card } from '@/components/Card';
-import { StatusBadge } from '@/components/StatusBadge';
-import { Button } from '@/components/Button';
+import Card from '@/components/Card';
+import StatusBadge from '@/components/StatusBadge';
+import Button from '@/components/Button';
 import { typography } from '@/constants/typography';
-import { colors } from '@/constants/colors';
+import { Colors } from '@/constants/colors';
 import { 
   Calendar, 
   Clock, 
@@ -82,7 +82,7 @@ export default function MaintenanceDetailsScreen() {
             title: "Maintenance Details",
             headerLeft: () => (
               <TouchableOpacity onPress={() => router.back()}>
-                <ChevronLeft size={24} color={colors.text} />
+                <ChevronLeft size={24} color={Colors.textPrimaryPrimaryPrimary} />
               </TouchableOpacity>
             ),
           }}
@@ -144,28 +144,28 @@ export default function MaintenanceDetailsScreen() {
   const getPriorityColor = (priority: string) => {
     switch (priority) {
       case 'critical':
-        return colors.error;
+        return Colors.accent;
       case 'high':
-        return colors.warning;
+        return Colors.warning;
       case 'medium':
-        return colors.accent;
+        return Colors.accent;
       case 'low':
-        return colors.success;
+        return Colors.success;
       default:
-        return colors.gray;
+        return Colors.textSecondary;
     }
   };
   
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'completed':
-        return <CheckCircle2 size={20} color={colors.success} />;
+        return <CheckCircle2 size={20} color={Colors.success} />;
       case 'in-progress':
-        return <Clock size={20} color={colors.accent} />;
+        return <Clock size={20} color={Colors.accent} />;
       case 'pending':
-        return <AlertTriangle size={20} color={colors.warning} />;
+        return <AlertTriangle size={20} color={Colors.warning} />;
       case 'cancelled':
-        return <XCircle size={20} color={colors.error} />;
+        return <XCircle size={20} color={Colors.accent} />;
       default:
         return null;
     }
@@ -178,7 +178,7 @@ export default function MaintenanceDetailsScreen() {
           title: "Maintenance Details",
           headerLeft: () => (
             <TouchableOpacity onPress={() => router.back()}>
-              <ChevronLeft size={24} color={colors.text} />
+              <ChevronLeft size={24} color={Colors.textPrimaryPrimaryPrimary} />
             </TouchableOpacity>
           ),
           headerRight: () => (
@@ -187,14 +187,14 @@ export default function MaintenanceDetailsScreen() {
                 style={styles.headerButton}
                 onPress={() => router.push(`/edit-maintenance?id=${item.id}`)}
               >
-                <Edit3 size={20} color={colors.primary} />
+                <Edit3 size={20} color={Colors.primary} />
               </TouchableOpacity>
               <TouchableOpacity 
                 style={styles.headerButton}
                 onPress={handleDelete}
                 disabled={isDeleting}
               >
-                <Trash2 size={20} color={colors.error} />
+                <Trash2 size={20} color={Colors.accent} />
               </TouchableOpacity>
             </View>
           ),
@@ -223,7 +223,7 @@ export default function MaintenanceDetailsScreen() {
             <View style={styles.detailRow}>
               <View style={styles.detailItem}>
                 <View style={styles.detailIcon}>
-                  <Calendar size={18} color={colors.primary} />
+                  <Calendar size={18} color={Colors.primary} />
                 </View>
                 <View>
                   <Text style={styles.detailLabel}>Due Date</Text>
@@ -233,7 +233,7 @@ export default function MaintenanceDetailsScreen() {
               
               <View style={styles.detailItem}>
                 <View style={styles.detailIcon}>
-                  <Clock size={18} color={colors.primary} />
+                  <Clock size={18} color={Colors.primary} />
                 </View>
                 <View>
                   <Text style={styles.detailLabel}>Estimated Time</Text>
@@ -257,7 +257,7 @@ export default function MaintenanceDetailsScreen() {
               
               <View style={styles.detailItem}>
                 <View style={styles.detailIcon}>
-                  <Wrench size={18} color={colors.primary} />
+                  <Wrench size={18} color={Colors.primary} />
                 </View>
                 <View>
                   <Text style={styles.detailLabel}>Category</Text>
@@ -271,7 +271,7 @@ export default function MaintenanceDetailsScreen() {
         {item.instructions && item.instructions.length > 0 && (
           <AnimatedSection index={2}>
             <View style={styles.sectionHeader}>
-              <FileText size={20} color={colors.text} />
+              <FileText size={20} color={Colors.textPrimaryPrimaryPrimary} />
               <Text style={typography.h3}>Instructions</Text>
             </View>
             
@@ -291,7 +291,7 @@ export default function MaintenanceDetailsScreen() {
         {item.images && item.images.length > 0 && (
           <AnimatedSection index={3}>
             <View style={styles.sectionHeader}>
-              <ImageIcon size={20} color={colors.text} />
+              <ImageIcon size={20} color={Colors.textPrimaryPrimaryPrimary} />
               <Text style={typography.h3}>Images</Text>
             </View>
             
@@ -358,7 +358,7 @@ export default function MaintenanceDetailsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: Colors.background,
   },
   scrollView: {
     flex: 1,
@@ -377,7 +377,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   description: {
-    color: colors.textSecondary,
+    color: Colors.textSecondary,
   },
   detailsCard: {
     marginBottom: 24,
@@ -396,19 +396,18 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: colors.primaryLight,
+    backgroundColor: Colors.background,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 12,
   },
   detailLabel: {
-    ...typography.caption,
-    color: colors.textSecondary,
+    fontSize: 12, fontWeight: "400", lineHeight: 16, letterSpacing: 0.4,
+    color: Colors.textSecondary,
     marginBottom: 2,
   },
   detailValue: {
-    ...typography.bodyMedium,
-    fontWeight: '600',
+    fontSize: 16, fontWeight: "600", lineHeight: 24, letterSpacing: 0.15,
   },
   sectionHeader: {
     flexDirection: 'row',
@@ -428,18 +427,17 @@ const styles = StyleSheet.create({
     width: 28,
     height: 28,
     borderRadius: 14,
-    backgroundColor: colors.primaryLight,
+    backgroundColor: Colors.background,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 12,
   },
   instructionNumberText: {
-    ...typography.bodySmall,
-    fontWeight: '600',
-    color: colors.primary,
+    fontSize: 16, fontWeight: "600", lineHeight: 24, letterSpacing: 0.15,
+    color: Colors.primary,
   },
   instructionText: {
-    ...typography.body,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
     flex: 1,
   },
   imagesContainer: {
@@ -451,7 +449,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     overflow: 'hidden',
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: Colors.textSecondary,
   },
   image: {
     width: 160,
@@ -480,11 +478,11 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: colors.white,
+    backgroundColor: Colors.white,
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 8,
-    shadowColor: colors.shadow,
+    shadowColor: Colors.primary,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
@@ -500,7 +498,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 12,
     marginBottom: 24,
-    color: colors.textSecondary,
+    color: Colors.textSecondary,
   },
   goBackButton: {
     width: 200,

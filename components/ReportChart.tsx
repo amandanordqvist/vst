@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
-import { colors } from '@/constants/colors';
+import { View, Text, StyleSheet, Dimensions, TextStyle } from 'react-native';
+import { Colors } from '@/constants/colors';
 import { typography } from '@/constants/typography';
 
 interface ChartDataset {
@@ -21,7 +21,7 @@ interface ReportChartProps {
   data: ChartData;
 }
 
-export function ReportChart({ type, data }: ReportChartProps) {
+export default function ReportChart({ type, data }: ReportChartProps) {
   const { width } = Dimensions.get('window');
   const chartWidth = width - 80; // Account for padding
   
@@ -31,7 +31,7 @@ export function ReportChart({ type, data }: ReportChartProps) {
         <View style={styles.pieChart}>
           {data.datasets[0].data.map((value, index) => {
             const percentage = (value / data.total) * 100;
-            const color = data.datasets[0].colors?.[index] || colors.primary;
+            const color = data.datasets[0].colors?.[index] || Colors.primary;
             
             return (
               <View key={index} style={styles.pieSegmentContainer}>
@@ -67,7 +67,7 @@ export function ReportChart({ type, data }: ReportChartProps) {
       <View style={styles.barChart}>
         {data.datasets[0].data.map((value, index) => {
           const barHeight = (value / maxValue) * 150;
-          const color = data.datasets[0].color || colors.primary;
+          const color = data.datasets[0].color || Colors.primary;
           
           return (
             <View key={index} style={styles.barGroup}>
@@ -124,9 +124,12 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 4,
   },
   barLabel: {
-    ...typography.caption,
+    fontSize: 12, 
+    fontWeight: "400" as TextStyle['fontWeight'], 
+    lineHeight: 16, 
+    letterSpacing: 0.4,
     marginTop: 8,
-    color: colors.textSecondary,
+    color: Colors.textSecondary,
   },
   yAxis: {
     width: 30,
@@ -136,8 +139,11 @@ const styles = StyleSheet.create({
     paddingRight: 4,
   },
   axisLabel: {
-    ...typography.caption,
-    color: colors.textSecondary,
+    fontSize: 12, 
+    fontWeight: "400" as TextStyle['fontWeight'], 
+    lineHeight: 16, 
+    letterSpacing: 0.4,
+    color: Colors.textSecondary,
   },
   pieContainer: {
     justifyContent: 'center',
@@ -162,10 +168,15 @@ const styles = StyleSheet.create({
     width: 200,
   },
   pieLabelText: {
-    ...typography.bodySmall,
+    fontSize: 16, 
+    fontWeight: "400" as TextStyle['fontWeight'], 
+    lineHeight: 24, 
+    letterSpacing: 0.15,
   },
   pieValueText: {
-    ...typography.bodySmall,
-    fontWeight: '600',
+    fontSize: 16, 
+    fontWeight: '600' as TextStyle['fontWeight'],
+    lineHeight: 24, 
+    letterSpacing: 0.15,
   },
 });

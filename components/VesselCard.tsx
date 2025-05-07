@@ -1,9 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, Platform } from 'react-native';
-import { Card } from './Card';
-import { StatusBadge } from './StatusBadge';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Platform, TextStyle } from 'react-native';
+import Card from './Card';
+import StatusBadge from './StatusBadge';
 import { typography } from '@/constants/typography';
-import { colors } from '@/constants/colors';
+import { Colors } from '@/constants/colors';
 import { Anchor, Droplets, Fuel, Navigation } from 'lucide-react-native';
 import Animated, { 
   useSharedValue, 
@@ -13,6 +13,24 @@ import Animated, {
   withDelay,
   Easing
 } from 'react-native-reanimated';
+
+// Convert typography styles to comply with TextStyle requirements
+const typographyStyles = {
+  h3: {
+    fontSize: typography.h3.fontSize,
+    fontWeight: typography.h3.fontWeight as TextStyle['fontWeight'],
+    color: typography.h3.color,
+    letterSpacing: typography.h3.letterSpacing,
+    lineHeight: typography.h3.lineHeight,
+  },
+  bodySmall: {
+    fontSize: typography.bodySmall.fontSize,
+    fontWeight: typography.bodySmall.fontWeight as TextStyle['fontWeight'],
+    color: typography.bodySmall.color,
+    letterSpacing: typography.bodySmall.letterSpacing,
+    lineHeight: typography.bodySmall.lineHeight,
+  }
+};
 
 interface VesselCardProps {
   vessel: {
@@ -28,7 +46,7 @@ interface VesselCardProps {
   onPress: () => void;
 }
 
-export function VesselCard({ vessel, onPress }: VesselCardProps) {
+export default function VesselCard({ vessel, onPress }: VesselCardProps) {
   // Animation values
   const opacity = useSharedValue(0);
   const translateY = useSharedValue(20);
@@ -57,9 +75,9 @@ export function VesselCard({ vessel, onPress }: VesselCardProps) {
   
   // Determine fuel level color
   const getFuelLevelColor = () => {
-    if (fuelLevelPercentage > 60) return colors.success;
-    if (fuelLevelPercentage > 30) return colors.warning;
-    return colors.error;
+    if (fuelLevelPercentage > 60) return Colors.success;
+    if (fuelLevelPercentage > 30) return Colors.warning;
+    return Colors.error;
   };
   
   // Use regular View for web
@@ -68,10 +86,10 @@ export function VesselCard({ vessel, onPress }: VesselCardProps) {
       <Card onPress={onPress} style={styles.card} variant="elevated">
         <View style={styles.header}>
           <View>
-            <Text style={typography.h3}>{vessel.name}</Text>
-            <Text style={[typography.bodySmall, styles.model]}>{vessel.model}</Text>
+            <Text style={typographyStyles.h3}>{vessel.name}</Text>
+            <Text style={[typographyStyles.bodySmall, styles.model]}>{vessel.model}</Text>
           </View>
-          <StatusBadge status={vessel.status} />
+          <StatusBadge status={vessel.status} label={vessel.status} />
         </View>
         
         <View style={styles.imageContainer}>
@@ -95,7 +113,7 @@ export function VesselCard({ vessel, onPress }: VesselCardProps) {
           
           <View style={styles.statItem}>
             <View style={styles.statIcon}>
-              <Navigation size={18} color={colors.secondary} />
+              <Navigation size={18} color={Colors.secondary} />
             </View>
             <View>
               <Text style={styles.statLabel}>Engine Hours</Text>
@@ -105,7 +123,7 @@ export function VesselCard({ vessel, onPress }: VesselCardProps) {
           
           <View style={styles.statItem}>
             <View style={styles.statIcon}>
-              <Anchor size={18} color={colors.primary} />
+              <Anchor size={18} color={Colors.primary} />
             </View>
             <View>
               <Text style={styles.statLabel}>Last Maintenance</Text>
@@ -123,10 +141,10 @@ export function VesselCard({ vessel, onPress }: VesselCardProps) {
       <Card onPress={onPress} style={styles.card} variant="elevated">
         <View style={styles.header}>
           <View>
-            <Text style={typography.h3}>{vessel.name}</Text>
-            <Text style={[typography.bodySmall, styles.model]}>{vessel.model}</Text>
+            <Text style={typographyStyles.h3}>{vessel.name}</Text>
+            <Text style={[typographyStyles.bodySmall, styles.model]}>{vessel.model}</Text>
           </View>
-          <StatusBadge status={vessel.status} />
+          <StatusBadge status={vessel.status} label={vessel.status} />
         </View>
         
         <View style={styles.imageContainer}>
@@ -149,8 +167,8 @@ export function VesselCard({ vessel, onPress }: VesselCardProps) {
           </View>
           
           <View style={styles.statItem}>
-            <View style={[styles.statIcon, { backgroundColor: `${colors.secondary}20` }]}>
-              <Navigation size={18} color={colors.secondary} />
+            <View style={[styles.statIcon, { backgroundColor: `${Colors.secondary}20` }]}>
+              <Navigation size={18} color={Colors.secondary} />
             </View>
             <View>
               <Text style={styles.statLabel}>Engine Hours</Text>
@@ -159,8 +177,8 @@ export function VesselCard({ vessel, onPress }: VesselCardProps) {
           </View>
           
           <View style={styles.statItem}>
-            <View style={[styles.statIcon, { backgroundColor: `${colors.primary}20` }]}>
-              <Anchor size={18} color={colors.primary} />
+            <View style={[styles.statIcon, { backgroundColor: `${Colors.primary}20` }]}>
+              <Anchor size={18} color={Colors.primary} />
             </View>
             <View>
               <Text style={styles.statLabel}>Last Maintenance</Text>
@@ -186,7 +204,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   model: {
-    color: colors.textSecondary,
+    color: Colors.textSecondary,
     marginTop: 4,
   },
   imageContainer: {
@@ -201,7 +219,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 20,
     borderTopWidth: 1,
-    borderTopColor: colors.border,
+    borderTopColor: Colors.border,
   },
   statItem: {
     flex: 1,
@@ -212,17 +230,22 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: colors.primaryLight,
+    backgroundColor: Colors.primaryLight,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 10,
   },
   statLabel: {
-    ...typography.caption,
-    color: colors.textSecondary,
+    fontSize: 12, 
+    fontWeight: "400" as TextStyle['fontWeight'], 
+    lineHeight: 16, 
+    letterSpacing: 0.4,
+    color: Colors.textSecondary,
   },
   statValue: {
-    ...typography.bodyMedium,
-    fontWeight: '600',
+    fontSize: 16,
+    fontWeight: '600' as TextStyle['fontWeight'],
+    lineHeight: 24, 
+    letterSpacing: 0.15,
   },
 });

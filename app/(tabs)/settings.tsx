@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Switch, Image } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Card } from '@/components/Card';
+import Card from '@/components/Card';
 import { typography } from '@/constants/typography';
-import { colors } from '@/constants/colors';
+import { Colors } from '@/constants/colors';
 import { 
   User, 
   Bell, 
@@ -54,57 +54,57 @@ export default function SettingsScreen() {
         
         <View style={styles.settingItem}>
           <View style={styles.settingInfo}>
-            <View style={[styles.settingIcon, { backgroundColor: colors.primaryLight }]}>
-              <Bell size={20} color={colors.primary} />
+            <View style={[styles.settingIcon, { backgroundColor: Colors.background }]}>
+              <Bell size={20} color={Colors.primary} />
             </View>
             <Text style={typography.body}>Notifications</Text>
           </View>
           <Switch
             value={notificationsEnabled}
             onValueChange={setNotificationsEnabled}
-            trackColor={{ false: colors.lightGray, true: `${colors.primary}80` }}
-            thumbColor={notificationsEnabled ? colors.primary : colors.gray}
+            trackColor={{ false: Colors.gray, true: `${Colors.primary}80` }}
+            thumbColor={notificationsEnabled ? Colors.primary : Colors.textSecondary}
           />
         </View>
         
         <View style={styles.settingItem}>
           <View style={styles.settingInfo}>
-            <View style={[styles.settingIcon, { backgroundColor: `${colors.secondary}20` }]}>
-              <Moon size={20} color={colors.secondary} />
+            <View style={[styles.settingIcon, { backgroundColor: `${Colors.secondary}20` }]}>
+              <Moon size={20} color={Colors.secondary} />
             </View>
             <Text style={typography.body}>Dark Mode</Text>
           </View>
           <Switch
             value={darkModeEnabled}
             onValueChange={setDarkModeEnabled}
-            trackColor={{ false: colors.lightGray, true: `${colors.primary}80` }}
-            thumbColor={darkModeEnabled ? colors.primary : colors.gray}
+            trackColor={{ false: Colors.gray, true: `${Colors.primary}80` }}
+            thumbColor={darkModeEnabled ? Colors.primary : Colors.textSecondary}
           />
         </View>
         
         <View style={styles.settingItem}>
           <View style={styles.settingInfo}>
-            <View style={[styles.settingIcon, { backgroundColor: `${colors.success}20` }]}>
-              <Globe size={20} color={colors.success} />
+            <View style={[styles.settingIcon, { backgroundColor: `${Colors.success}20` }]}>
+              <Globe size={20} color={Colors.success} />
             </View>
             <Text style={typography.body}>Location Services</Text>
           </View>
           <Switch
             value={locationEnabled}
             onValueChange={setLocationEnabled}
-            trackColor={{ false: colors.lightGray, true: `${colors.primary}80` }}
-            thumbColor={locationEnabled ? colors.primary : colors.gray}
+            trackColor={{ false: Colors.gray, true: `${Colors.primary}80` }}
+            thumbColor={locationEnabled ? Colors.primary : Colors.textSecondary}
           />
         </View>
         
         <TouchableOpacity style={styles.settingItem}>
           <View style={styles.settingInfo}>
-            <View style={[styles.settingIcon, { backgroundColor: `${colors.warning}20` }]}>
-              <Smartphone size={20} color={colors.warning} />
+            <View style={[styles.settingIcon, { backgroundColor: `${Colors.warning}20` }]}>
+              <Smartphone size={20} color={Colors.warning} />
             </View>
             <Text style={typography.body}>Device Management</Text>
           </View>
-          <ChevronRight size={20} color={colors.gray} />
+          <ChevronRight size={20} color={Colors.textSecondary} />
         </TouchableOpacity>
       </Card>
       
@@ -113,32 +113,32 @@ export default function SettingsScreen() {
         
         <TouchableOpacity style={styles.settingItem}>
           <View style={styles.settingInfo}>
-            <View style={[styles.settingIcon, { backgroundColor: colors.primaryLight }]}>
-              <Anchor size={20} color={colors.primary} />
+            <View style={[styles.settingIcon, { backgroundColor: Colors.background }]}>
+              <Anchor size={20} color={Colors.primary} />
             </View>
             <Text style={typography.body}>Manage Vessels</Text>
           </View>
-          <ChevronRight size={20} color={colors.gray} />
+          <ChevronRight size={20} color={Colors.textSecondary} />
         </TouchableOpacity>
         
         <TouchableOpacity style={styles.settingItem}>
           <View style={styles.settingInfo}>
-            <View style={[styles.settingIcon, { backgroundColor: `${colors.secondary}20` }]}>
-              <Wrench size={20} color={colors.secondary} />
+            <View style={[styles.settingIcon, { backgroundColor: `${Colors.secondary}20` }]}>
+              <Wrench size={20} color={Colors.secondary} />
             </View>
             <Text style={typography.body}>Maintenance Schedules</Text>
           </View>
-          <ChevronRight size={20} color={colors.gray} />
+          <ChevronRight size={20} color={Colors.textSecondary} />
         </TouchableOpacity>
         
         <TouchableOpacity style={styles.settingItem}>
           <View style={styles.settingInfo}>
-            <View style={[styles.settingIcon, { backgroundColor: `${colors.warning}20` }]}>
-              <LifeBuoy size={20} color={colors.warning} />
+            <View style={[styles.settingIcon, { backgroundColor: `${Colors.warning}20` }]}>
+              <LifeBuoy size={20} color={Colors.warning} />
             </View>
             <Text style={typography.body}>Safety Equipment</Text>
           </View>
-          <ChevronRight size={20} color={colors.gray} />
+          <ChevronRight size={20} color={Colors.textSecondary} />
         </TouchableOpacity>
       </Card>
       
@@ -147,22 +147,22 @@ export default function SettingsScreen() {
         
         <TouchableOpacity style={styles.settingItem}>
           <View style={styles.settingInfo}>
-            <View style={[styles.settingIcon, { backgroundColor: colors.primaryLight }]}>
-              <User size={20} color={colors.primary} />
+            <View style={[styles.settingIcon, { backgroundColor: Colors.background }]}>
+              <User size={20} color={Colors.primary} />
             </View>
             <Text style={typography.body}>Account Information</Text>
           </View>
-          <ChevronRight size={20} color={colors.gray} />
+          <ChevronRight size={20} color={Colors.textSecondary} />
         </TouchableOpacity>
         
         <TouchableOpacity style={styles.settingItem}>
           <View style={styles.settingInfo}>
-            <View style={[styles.settingIcon, { backgroundColor: `${colors.secondary}20` }]}>
-              <Shield size={20} color={colors.secondary} />
+            <View style={[styles.settingIcon, { backgroundColor: `${Colors.secondary}20` }]}>
+              <Shield size={20} color={Colors.secondary} />
             </View>
             <Text style={typography.body}>Privacy & Security</Text>
           </View>
-          <ChevronRight size={20} color={colors.gray} />
+          <ChevronRight size={20} color={Colors.textSecondary} />
         </TouchableOpacity>
       </Card>
       
@@ -171,22 +171,22 @@ export default function SettingsScreen() {
         
         <TouchableOpacity style={styles.settingItem}>
           <View style={styles.settingInfo}>
-            <View style={[styles.settingIcon, { backgroundColor: `${colors.success}20` }]}>
-              <HelpCircle size={20} color={colors.success} />
+            <View style={[styles.settingIcon, { backgroundColor: `${Colors.success}20` }]}>
+              <HelpCircle size={20} color={Colors.success} />
             </View>
             <Text style={typography.body}>Help & Support</Text>
           </View>
-          <ChevronRight size={20} color={colors.gray} />
+          <ChevronRight size={20} color={Colors.textSecondary} />
         </TouchableOpacity>
         
         <TouchableOpacity style={styles.settingItem}>
           <View style={styles.settingInfo}>
-            <View style={[styles.settingIcon, { backgroundColor: `${colors.warning}20` }]}>
-              <Shield size={20} color={colors.warning} />
+            <View style={[styles.settingIcon, { backgroundColor: `${Colors.warning}20` }]}>
+              <Shield size={20} color={Colors.warning} />
             </View>
             <Text style={typography.body}>Terms & Privacy Policy</Text>
           </View>
-          <ChevronRight size={20} color={colors.gray} />
+          <ChevronRight size={20} color={Colors.textSecondary} />
         </TouchableOpacity>
       </Card>
       
@@ -194,7 +194,7 @@ export default function SettingsScreen() {
         style={styles.logoutButton}
         onPress={handleLogout}
       >
-        <LogOut size={20} color={colors.error} />
+        <LogOut size={20} color={Colors.accent} />
         <Text style={styles.logoutText}>Log Out</Text>
       </TouchableOpacity>
       
@@ -206,7 +206,7 @@ export default function SettingsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: Colors.background,
   },
   contentContainer: {
     padding: 16,
@@ -215,11 +215,11 @@ const styles = StyleSheet.create({
   profileSection: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.white,
+    backgroundColor: Colors.white,
     borderRadius: 16,
     padding: 16,
     marginBottom: 16,
-    shadowColor: colors.text,
+    shadowColor: Colors.textPrimaryPrimaryPrimary,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.05,
     shadowRadius: 4,
@@ -235,17 +235,17 @@ const styles = StyleSheet.create({
     marginLeft: 16,
   },
   emailText: {
-    color: colors.textSecondary,
+    color: Colors.textSecondary,
   },
   editButton: {
     paddingVertical: 6,
     paddingHorizontal: 12,
-    backgroundColor: colors.primaryLight,
+    backgroundColor: Colors.background,
     borderRadius: 8,
   },
   editButtonText: {
     ...typography.buttonSmall,
-    color: colors.primary,
+    color: Colors.primary,
   },
   settingsCard: {
     marginBottom: 16,
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: colors.border,
+    borderBottomColor: Colors.textSecondary,
   },
   settingInfo: {
     flexDirection: 'row',
@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: `${colors.error}15`,
+    backgroundColor: `${Colors.accent}15`,
     borderRadius: 12,
     padding: 16,
     marginTop: 8,
@@ -285,12 +285,12 @@ const styles = StyleSheet.create({
   },
   logoutText: {
     ...typography.button,
-    color: colors.error,
+    color: Colors.accent,
     marginLeft: 8,
   },
   versionText: {
-    ...typography.caption,
-    color: colors.textSecondary,
+    fontSize: 12, fontWeight: "400", lineHeight: 16, letterSpacing: 0.4,
+    color: Colors.textSecondary,
     textAlign: 'center',
   },
 });

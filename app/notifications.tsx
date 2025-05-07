@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Switch } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
-import { Card } from '@/components/Card';
+import Card from '@/components/Card';
 import { typography } from '@/constants/typography';
-import { colors } from '@/constants/colors';
+import { Colors } from '@/constants/colors';
 import { 
   ChevronLeft, 
   Bell, 
@@ -70,13 +70,13 @@ export default function NotificationsScreen() {
   const getNotificationIcon = (type: string) => {
     switch (type) {
       case 'maintenance':
-        return <AlertTriangle size={20} color={colors.error} />;
+        return <AlertTriangle size={20} color={Colors.accent} />;
       case 'checklist':
-        return <CheckCircle size={20} color={colors.primary} />;
+        return <CheckCircle size={20} color={Colors.primary} />;
       case 'trip':
-        return <Calendar size={20} color={colors.success} />;
+        return <Calendar size={20} color={Colors.success} />;
       default:
-        return <Bell size={20} color={colors.gray} />;
+        return <Bell size={20} color={Colors.textSecondary} />;
     }
   };
   
@@ -109,7 +109,7 @@ export default function NotificationsScreen() {
               onPress={() => router.back()}
               style={styles.headerButton}
             >
-              <ChevronLeft size={24} color={colors.text} />
+              <ChevronLeft size={24} color={Colors.textPrimaryPrimaryPrimary} />
             </TouchableOpacity>
           ),
           headerRight: () => (
@@ -117,7 +117,7 @@ export default function NotificationsScreen() {
               onPress={() => clearAll()}
               style={styles.headerButton}
             >
-              <Trash2 size={20} color={colors.text} />
+              <Trash2 size={20} color={Colors.textPrimaryPrimaryPrimary} />
             </TouchableOpacity>
           ),
         }} 
@@ -126,7 +126,7 @@ export default function NotificationsScreen() {
       <View style={styles.container}>
         <Card style={styles.settingsCard}>
           <View style={styles.settingsHeader}>
-            <Settings size={20} color={colors.primary} />
+            <Settings size={20} color={Colors.primary} />
             <Text style={[typography.subtitle, { marginLeft: 8 }]}>Notification Settings</Text>
           </View>
           
@@ -135,8 +135,8 @@ export default function NotificationsScreen() {
             <Switch
               value={settings.maintenance}
               onValueChange={(value) => updateSettings({ ...settings, maintenance: value })}
-              trackColor={{ false: colors.lightGray, true: colors.primaryLight }}
-              thumbColor={settings.maintenance ? colors.primary : colors.gray}
+              trackColor={{ false: Colors.gray, true: Colors.background }}
+              thumbColor={settings.maintenance ? Colors.primary : Colors.textSecondary}
             />
           </View>
           
@@ -145,8 +145,8 @@ export default function NotificationsScreen() {
             <Switch
               value={settings.checklists}
               onValueChange={(value) => updateSettings({ ...settings, checklists: value })}
-              trackColor={{ false: colors.lightGray, true: colors.primaryLight }}
-              thumbColor={settings.checklists ? colors.primary : colors.gray}
+              trackColor={{ false: Colors.gray, true: Colors.background }}
+              thumbColor={settings.checklists ? Colors.primary : Colors.textSecondary}
             />
           </View>
           
@@ -155,8 +155,8 @@ export default function NotificationsScreen() {
             <Switch
               value={settings.trips}
               onValueChange={(value) => updateSettings({ ...settings, trips: value })}
-              trackColor={{ false: colors.lightGray, true: colors.primaryLight }}
-              thumbColor={settings.trips ? colors.primary : colors.gray}
+              trackColor={{ false: Colors.gray, true: Colors.background }}
+              thumbColor={settings.trips ? Colors.primary : Colors.textSecondary}
             />
           </View>
           
@@ -165,8 +165,8 @@ export default function NotificationsScreen() {
             <Switch
               value={settings.weather}
               onValueChange={(value) => updateSettings({ ...settings, weather: value })}
-              trackColor={{ false: colors.lightGray, true: colors.primaryLight }}
-              thumbColor={settings.weather ? colors.primary : colors.gray}
+              trackColor={{ false: Colors.gray, true: Colors.background }}
+              thumbColor={settings.weather ? Colors.primary : Colors.textSecondary}
             />
           </View>
         </Card>
@@ -174,7 +174,7 @@ export default function NotificationsScreen() {
         {criticalItems.length > 0 && (
           <Card style={styles.alertCard}>
             <View style={styles.alertHeader}>
-              <AlertTriangle size={20} color={colors.error} />
+              <AlertTriangle size={20} color={Colors.accent} />
               <Text style={styles.alertTitle}>Critical Maintenance Required</Text>
             </View>
             
@@ -194,7 +194,7 @@ export default function NotificationsScreen() {
         {(incompleteChecklists.preDeparture.length > 0 || incompleteChecklists.postTrip.length > 0) && (
           <Card style={styles.reminderCard}>
             <View style={styles.alertHeader}>
-              <CheckCircle size={20} color={colors.primary} />
+              <CheckCircle size={20} color={Colors.primary} />
               <Text style={styles.reminderTitle}>Checklist Reminders</Text>
             </View>
             
@@ -244,7 +244,7 @@ export default function NotificationsScreen() {
                   </Text>
                   
                   <View style={styles.notificationMeta}>
-                    <Clock size={12} color={colors.gray} />
+                    <Clock size={12} color={Colors.textSecondary} />
                     <Text style={styles.notificationTime}>
                       {formatTimestamp(notification.timestamp)}
                     </Text>
@@ -254,7 +254,7 @@ export default function NotificationsScreen() {
             ))
           ) : (
             <View style={styles.emptyState}>
-              <Bell size={48} color={colors.gray} />
+              <Bell size={48} color={Colors.textSecondary} />
               <Text style={styles.emptyStateText}>No notifications</Text>
             </View>
           )}
@@ -267,7 +267,7 @@ export default function NotificationsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: Colors.background,
     padding: 16,
   },
   headerButton: {
@@ -288,13 +288,13 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
   settingLabel: {
-    ...typography.body,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
   },
   alertCard: {
     marginBottom: 16,
-    backgroundColor: `${colors.error}10`,
+    backgroundColor: `${Colors.accent}10`,
     borderWidth: 1,
-    borderColor: `${colors.error}30`,
+    borderColor: `${Colors.accent}30`,
   },
   alertHeader: {
     flexDirection: 'row',
@@ -302,35 +302,35 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   alertTitle: {
-    ...typography.subtitle,
-    color: colors.error,
+    fontSize: 18, fontWeight: "600", lineHeight: 26, letterSpacing: 0.15,
+    color: Colors.accent,
     marginLeft: 8,
   },
   alertText: {
-    ...typography.body,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
     marginBottom: 12,
   },
   alertButton: {
     alignSelf: 'flex-start',
     paddingVertical: 6,
     paddingHorizontal: 12,
-    backgroundColor: colors.error,
+    backgroundColor: Colors.accent,
     borderRadius: 8,
   },
   alertButtonText: {
-    ...typography.bodySmall,
-    color: colors.white,
-    fontWeight: '600',
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
+    color: Colors.white,
+    fontWeight: "600",
   },
   reminderCard: {
     marginBottom: 16,
-    backgroundColor: colors.primaryLight,
+    backgroundColor: Colors.background,
     borderWidth: 1,
-    borderColor: `${colors.primary}30`,
+    borderColor: `${Colors.primary}30`,
   },
   reminderTitle: {
-    ...typography.subtitle,
-    color: colors.primary,
+    fontSize: 18, fontWeight: "600", lineHeight: 26, letterSpacing: 0.15,
+    color: Colors.primary,
     marginLeft: 8,
   },
   sectionTitle: {
@@ -342,23 +342,23 @@ const styles = StyleSheet.create({
   notificationItem: {
     flexDirection: 'row',
     padding: 16,
-    backgroundColor: colors.white,
+    backgroundColor: Colors.white,
     borderRadius: 12,
     marginBottom: 8,
     borderWidth: 1,
   },
   unreadNotification: {
-    borderColor: colors.primary,
-    backgroundColor: colors.primaryLight,
+    borderColor: Colors.primary,
+    backgroundColor: Colors.background,
   },
   readNotification: {
-    borderColor: colors.border,
+    borderColor: Colors.textSecondary,
   },
   notificationIcon: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: colors.lightGray,
+    backgroundColor: Colors.gray,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 12,
@@ -367,17 +367,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   notificationTitle: {
-    ...typography.subtitle,
+    fontSize: 18, fontWeight: "600", lineHeight: 26, letterSpacing: 0.15,
     marginBottom: 4,
   },
   unreadText: {
-    fontWeight: '700',
+    fontWeight: "700",
   },
   readText: {
-    fontWeight: '600',
+    fontWeight: "600",
   },
   notificationMessage: {
-    ...typography.body,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
     marginBottom: 8,
   },
   notificationMeta: {
@@ -385,8 +385,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   notificationTime: {
-    ...typography.caption,
-    color: colors.textSecondary,
+    fontSize: 12, fontWeight: "400", lineHeight: 16, letterSpacing: 0.4,
+    color: Colors.textSecondary,
     marginLeft: 4,
   },
   emptyState: {
@@ -395,8 +395,8 @@ const styles = StyleSheet.create({
     padding: 32,
   },
   emptyStateText: {
-    ...typography.body,
-    color: colors.textSecondary,
+    fontSize: 16, fontWeight: "400", lineHeight: 24, letterSpacing: 0.15,
+    color: Colors.textSecondary,
     marginTop: 16,
   },
 });
